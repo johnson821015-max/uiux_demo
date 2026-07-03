@@ -551,6 +551,143 @@ code { font-family: var(--font-mono); font-size: 0.9em; background: var(--surfac
 .bottom-sheet.open { transform: translateY(0); }
 .bottom-sheet .handle { width: 36px; height: 4px; background: var(--border); border-radius: var(--radius-full); margin: 0 auto var(--sp-4); }
 
+/* 手機展示排列 Phone Grid */
+.phone-grid { display: flex; flex-wrap: wrap; gap: var(--sp-6); justify-content: center; align-items: flex-start; }
+.phone-demo { display: flex; flex-direction: column; gap: var(--sp-3); align-items: center; }
+.phone-caption { font-size: var(--fs-sm); color: var(--text-2); font-weight: var(--fw-medium); }
+
+/* 聊天介面 Chat UI */
+.chat-day { text-align: center; font-size: var(--fs-xs); color: var(--text-3); }
+.bubble-row { display: flex; gap: 8px; align-items: flex-end; }
+.bubble-row.me { flex-direction: row-reverse; }
+.bubble { max-width: 76%; padding: 8px 12px; border-radius: 16px; border-bottom-left-radius: 4px; font-size: var(--fs-sm); background: var(--surface); border: 1px solid var(--border); }
+.bubble-row.me .bubble { background: var(--primary); color: #fff; border: none; border-bottom-left-radius: 16px; border-bottom-right-radius: 4px; }
+.bubble-time { font-size: 10px; color: var(--text-3); flex-shrink: 0; }
+.typing { display: inline-flex; gap: 4px; padding: 12px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; border-bottom-left-radius: 4px; }
+.typing i { width: 6px; height: 6px; border-radius: 50%; background: var(--text-3); animation: typingBounce 1.2s infinite; }
+.typing i:nth-child(2) { animation-delay: .15s; }
+.typing i:nth-child(3) { animation-delay: .3s; }
+@keyframes typingBounce { 30% { transform: translateY(-4px); } }
+.chat-inputbar { display: flex; gap: 8px; padding: 8px 12px; background: var(--surface); border-top: 1px solid var(--border); align-items: center; }
+.chat-inputbar input { flex: 1; min-width: 0; border: 1px solid var(--border); border-radius: var(--radius-full); padding: 8px 14px; font: inherit; font-size: var(--fs-sm); background: var(--bg); color: var(--text); outline: none; }
+.chat-inputbar input:focus { border-color: var(--primary); }
+.chat-inputbar button { background: none; border: none; font-size: 18px; cursor: pointer; color: var(--text-2); }
+
+/* 限時動態圈 Story Circles */
+.story-row { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 4px; flex-shrink: 0; }
+.story { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 10px; color: var(--text-2); flex-shrink: 0; }
+.story-ring { width: 54px; height: 54px; border-radius: 50%; padding: 3px; background: linear-gradient(135deg, var(--accent), var(--danger), var(--primary)); }
+.story-ring .inner { width: 100%; height: 100%; border-radius: 50%; background: var(--surface); display: flex; align-items: center; justify-content: center; font-size: 20px; border: 2px solid var(--surface); }
+
+/* 商品卡 Product Card */
+.prod-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.prod-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; position: relative; }
+.prod-img { height: 88px; }
+.prod-fav { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border-radius: 50%; background: var(--surface); border: none; cursor: pointer; box-shadow: var(--shadow-sm); font-size: 13px; color: var(--text-3); }
+.prod-fav.on { color: var(--danger); }
+.prod-body { padding: 8px 10px; }
+.prod-name { font-size: var(--fs-xs); color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.prod-price { font-size: var(--fs-sm); font-weight: var(--fw-bold); color: var(--primary); }
+.prod-price .orig { font-size: 10px; color: var(--text-3); text-decoration: line-through; font-weight: var(--fw-regular); margin-left: 4px; }
+
+/* 個人頁統計列 Profile Stats */
+.stats-row { display: flex; justify-content: space-around; text-align: center; padding: var(--sp-3) 0; }
+.stats-row b { display: block; font-size: var(--fs-lg); }
+.stats-row span { font-size: var(--fs-xs); color: var(--text-3); }
+
+/* 設定分組標籤 Settings Label */
+.settings-label { font-size: var(--fs-xs); color: var(--text-3); font-weight: var(--fw-medium); letter-spacing: .05em; margin-bottom: -4px; }
+
+/* 未讀圓點 Unread Dot */
+.unread-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--primary); flex-shrink: 0; }
+.notif-unread { background: var(--primary-light); }
+
+/* 分隔文字 Divider Text */
+.divider-text { display: flex; align-items: center; gap: 12px; color: var(--text-3); font-size: var(--fs-xs); }
+.divider-text::before, .divider-text::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+
+/* ═══════════════════════════════════════════════════════
+   ⑮ 第三方整合 THIRD-PARTY INTEGRATIONS
+   （地圖 / 金流 / 分享 / 影片 / 客服 / Cookie）
+   ═══════════════════════════════════════════════════════ */
+/* 地圖 Map（嵌入地圖服務時的介面樣式） */
+.map { position: relative; height: 300px; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+.map-canvas { position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 18% 28%, color-mix(in srgb, var(--success) 16%, transparent) 0 56px, transparent 57px),
+    radial-gradient(circle at 78% 72%, color-mix(in srgb, var(--success) 13%, transparent) 0 44px, transparent 45px),
+    linear-gradient(105deg, transparent 60%, color-mix(in srgb, var(--secondary) 22%, transparent) 60% 68%, transparent 68%),
+    repeating-linear-gradient(0deg, transparent 0 52px, var(--surface) 52px 58px),
+    repeating-linear-gradient(90deg, transparent 0 72px, var(--surface) 72px 78px),
+    var(--surface-2);
+}
+.map-search { position: absolute; top: 12px; left: 12px; right: 64px; max-width: 260px; }
+.map-search .input { box-shadow: var(--shadow-md); border-radius: var(--radius-full); }
+.map-zoom { position: absolute; top: 12px; right: 12px; display: flex; flex-direction: column; border-radius: var(--radius-sm); overflow: hidden; box-shadow: var(--shadow-md); }
+.map-zoom button { width: 36px; height: 36px; border: none; background: var(--surface); color: var(--text); font-size: 16px; cursor: pointer; }
+.map-zoom button:first-child { border-bottom: 1px solid var(--border); }
+.map-zoom button:hover { background: var(--surface-2); }
+.map-pin { position: absolute; transform: translate(-50%, -92%); font-size: 28px; cursor: pointer; background: none; border: none; padding: 0; filter: drop-shadow(0 2px 2px rgba(0,0,0,.3)); transition: transform .15s ease; line-height: 1; }
+.map-pin:hover, .map-pin.active { transform: translate(-50%, -92%) scale(1.25); }
+.map-me { position: absolute; transform: translate(-50%, -50%); }
+.map-me .core { width: 14px; height: 14px; border-radius: 50%; background: var(--info); border: 3px solid #fff; box-shadow: 0 0 0 8px color-mix(in srgb, var(--info) 22%, transparent); }
+.map-card { position: absolute; left: 12px; right: 12px; bottom: 12px; max-width: 340px; margin: 0 auto; background: var(--surface); border-radius: var(--radius-md); box-shadow: var(--shadow-lg); padding: var(--sp-4); display: none; }
+.map-card.open { display: block; }
+.map-card .name { font-weight: var(--fw-bold); font-size: var(--fs-md); }
+.map-card .rating { font-size: var(--fs-xs); color: var(--accent); margin: 2px 0; }
+.map-card .rating i { color: var(--text-3); font-style: normal; }
+.map-card .addr { font-size: var(--fs-xs); color: var(--text-3); margin-bottom: var(--sp-3); }
+.map-card .actions { display: flex; gap: var(--sp-2); }
+
+/* 金流付款 Payment */
+.pay-wallets { display: flex; flex-direction: column; gap: var(--sp-2); }
+.pay-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 12px; border-radius: var(--radius-md); border: 1px solid transparent; font-size: var(--fs-sm); font-weight: var(--fw-medium); font-family: inherit; cursor: pointer; transition: all var(--transition); }
+.pay-btn:hover { filter: brightness(0.94); }
+.pay-apple { background: #000; color: #fff; }
+.pay-gpay  { background: #fff; color: #1F1F1F; border-color: #DADCE0; }
+.pay-line  { background: #06C755; color: #fff; }
+.card-row { display: flex; gap: var(--sp-3); }
+.order-line { display: flex; justify-content: space-between; font-size: var(--fs-sm); color: var(--text-2); padding: var(--sp-1) 0; }
+.order-line.total { border-top: 1px solid var(--border); margin-top: var(--sp-2); padding-top: var(--sp-3); font-weight: var(--fw-bold); color: var(--text); font-size: var(--fs-md); }
+
+/* 社群分享 Social Share */
+.share-row { display: flex; gap: var(--sp-3); align-items: center; flex-wrap: wrap; }
+.share-btn { width: 44px; height: 44px; border-radius: 50%; border: none; color: #fff; font-size: 18px; font-weight: var(--fw-bold); cursor: pointer; transition: transform var(--transition), box-shadow var(--transition); display: inline-flex; align-items: center; justify-content: center; }
+.share-btn:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.share-fb   { background: #1877F2; }
+.share-line { background: #06C755; }
+.share-x    { background: #000; }
+.share-ig   { background: linear-gradient(45deg, #F58529, #DD2A7B, #8134AF); }
+.share-yt   { background: #FF0000; }
+
+/* 影片嵌入 Video Embed */
+.video { position: relative; aspect-ratio: 16 / 9; border-radius: var(--radius-lg); overflow: hidden; background: linear-gradient(135deg, #1E293B, #0F172A); cursor: pointer; box-shadow: var(--shadow-sm); }
+.video .vignette { position: absolute; inset: 0; background: radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--primary) 30%, transparent), transparent 70%); }
+.video .play { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 64px; height: 64px; border-radius: 50%; border: none; background: rgba(255,255,255,.92); color: #0F172A; font-size: 22px; cursor: pointer; transition: transform var(--transition); display: flex; align-items: center; justify-content: center; padding-left: 4px; }
+.video:hover .play { transform: translate(-50%, -50%) scale(1.1); }
+.video .vtitle { position: absolute; top: 12px; left: 14px; right: 14px; color: #fff; font-size: var(--fs-sm); font-weight: var(--fw-medium); text-shadow: 0 1px 3px rgba(0,0,0,.5); }
+.video .vbar { position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: rgba(255,255,255,.25); }
+.video .vbar i { display: block; height: 100%; width: 0; background: var(--danger); transition: width .3s linear; }
+.video.playing .play { display: none; }
+
+/* 客服小工具 Support Chat Widget */
+.cs-demo { position: relative; height: 320px; background: var(--surface-2); border-radius: var(--radius-lg); border: 1px dashed var(--border); overflow: hidden; }
+.cs-demo .hint { position: absolute; top: 45%; left: 0; right: 0; text-align: center; font-size: var(--fs-sm); color: var(--text-3); }
+.cs-bubble { position: absolute; right: 16px; bottom: 16px; width: 54px; height: 54px; border-radius: 50%; border: none; background: var(--primary); color: #fff; font-size: 22px; cursor: pointer; box-shadow: var(--shadow-lg); transition: transform var(--transition); z-index: 2; }
+.cs-bubble:hover { transform: scale(1.08); }
+.cs-panel { position: absolute; right: 16px; bottom: 80px; width: 260px; background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); border: 1px solid var(--border); overflow: hidden; display: none; }
+.cs-panel.open { display: block; animation: modalIn .2s ease; }
+.cs-head { background: var(--primary); color: #fff; padding: var(--sp-3) var(--sp-4); font-size: var(--fs-sm); font-weight: var(--fw-medium); }
+.cs-head small { display: block; font-weight: var(--fw-regular); opacity: .85; font-size: var(--fs-xs); }
+.cs-body { padding: var(--sp-3); display: flex; flex-direction: column; gap: var(--sp-2); max-height: 150px; overflow-y: auto; }
+.cs-quick { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 var(--sp-3) var(--sp-3); }
+.cs-quick .chip { font-size: var(--fs-xs); padding: 4px 10px; }
+
+/* Cookie 同意橫幅 */
+.cookie-banner { display: flex; gap: var(--sp-4); align-items: center; flex-wrap: wrap; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); padding: var(--sp-4) var(--sp-5); }
+.cookie-banner p { flex: 1; min-width: 200px; font-size: var(--fs-xs); }
+.cookie-banner .actions { display: flex; gap: var(--sp-2); }
+
 /* ═══════════════════════════════════════════════════════
    ⑫ 版面模式 LAYOUT PATTERNS（Hero / 特色區 / 側欄 / Footer）
    ═══════════════════════════════════════════════════════ */
@@ -774,6 +911,7 @@ code { font-family: var(--font-mono); font-size: 0.9em; background: var(--surfac
     <a href="#motion">動效</a>
     <a href="#interactive">互動</a>
     <a href="#mobile">App</a>
+    <a href="#thirdparty">第三方</a>
     <a href="#layout">版面</a>
   </nav>
   <button class="btn btn-secondary btn-sm" id="themeToggle">🌙 深色模式</button>
@@ -1448,7 +1586,10 @@ code { font-family: var(--font-mono); font-size: 0.9em; background: var(--surfac
 
 <!-- ════════════════ ⑪ 手機 APP ════════════════ -->
 <section class="demo-section" id="mobile">
-  <h2>手機 App 元件 <span>App Bar × 底部導覽 × FAB × Bottom Sheet</span></h2>
+  <h2>手機 App 元件 <span>常見畫面 × App Bar × 底部導覽 × FAB × Bottom Sheet</span></h2>
+  <div class="phone-grid">
+
+  <div class="phone-demo">
   <div class="phone">
     <div class="statusbar"><span>9:41</span><span>📶 🔋 100%</span></div>
     <div class="appbar">
@@ -1492,6 +1633,304 @@ code { font-family: var(--font-mono); font-size: 0.9em; background: var(--surfac
       <a href="#mobile"><span class="ico">💬</span>訊息</a>
       <a href="#mobile"><span class="ico">👤</span>我的</a>
     </nav>
+  </div>
+  <div class="phone-caption">首頁 Home</div>
+  </div>
+
+  <!-- 登入頁 Login -->
+  <div class="phone-demo">
+  <div class="phone">
+    <div class="statusbar"><span>9:41</span><span>📶 🔋 100%</span></div>
+    <div class="content" style="justify-content:center;padding:var(--sp-5);gap:var(--sp-3)">
+      <div style="text-align:center;margin-bottom:var(--sp-2)">
+        <span class="avatar avatar-lg avatar-img" style="margin-bottom:var(--sp-3)">UI</span>
+        <h3>歡迎回來</h3>
+        <p style="font-size:var(--fs-xs)">登入以繼續使用</p>
+      </div>
+      <input class="input" type="email" placeholder="Email">
+      <input class="input" type="password" placeholder="密碼">
+      <a href="#mobile" style="font-size:var(--fs-xs);align-self:flex-end">忘記密碼？</a>
+      <button class="btn btn-primary btn-block">登入</button>
+      <div class="divider-text">或使用以下方式</div>
+      <button class="btn btn-secondary btn-block btn-sm">🔴 使用 Google 登入</button>
+      <button class="btn btn-secondary btn-block btn-sm">🍎 使用 Apple 登入</button>
+      <button class="btn btn-secondary btn-block btn-sm">🟢 使用 LINE 登入</button>
+      <p style="font-size:var(--fs-xs);text-align:center">還沒有帳號？<a href="#mobile">立即註冊</a></p>
+    </div>
+  </div>
+  <div class="phone-caption">登入頁 Login</div>
+  </div>
+
+  <!-- 聊天室 Chat -->
+  <div class="phone-demo">
+  <div class="phone">
+    <div class="statusbar"><span>9:41</span><span>📶 🔋 100%</span></div>
+    <div class="appbar">
+      <button class="icon-btn">‹</button>
+      <span class="avatar avatar-sm avatar-img">美</span>
+      <div style="flex:1;line-height:1.3">
+        <div style="font-weight:var(--fw-bold);font-size:var(--fs-sm)">李美華</div>
+        <div style="font-size:10px;color:var(--success)">● 線上</div>
+      </div>
+      <button class="icon-btn">📞</button>
+      <button class="icon-btn">⋮</button>
+    </div>
+    <div class="content" id="chatBody" style="gap:var(--sp-2)">
+      <div class="chat-day">今天</div>
+      <div class="bubble-row"><span class="avatar avatar-sm avatar-img">美</span><div class="bubble">嗨！新版設計稿看了嗎？</div><span class="bubble-time">14:02</span></div>
+      <div class="bubble-row me"><span class="bubble-time">14:03</span><div class="bubble">看了！配色很讚 👍</div></div>
+      <div class="bubble-row me"><span class="bubble-time">14:03</span><div class="bubble">按鈕圓角可以再大一點</div></div>
+      <div class="bubble-row"><span class="avatar avatar-sm avatar-img">美</span><div class="typing"><i></i><i></i><i></i></div></div>
+    </div>
+    <div class="chat-inputbar">
+      <button aria-label="附加">＋</button>
+      <input id="chatField" placeholder="輸入訊息…（按 Enter 送出）">
+      <button id="chatSend" style="color:var(--primary)" aria-label="送出">➤</button>
+    </div>
+  </div>
+  <div class="phone-caption">聊天室 Chat（可實際輸入）</div>
+  </div>
+
+  <!-- 個人頁 Profile -->
+  <div class="phone-demo">
+  <div class="phone">
+    <div class="statusbar"><span>9:41</span><span>📶 🔋 100%</span></div>
+    <div class="content" style="padding:0;gap:0">
+      <div style="height:88px;background:linear-gradient(135deg,var(--primary),var(--secondary));flex-shrink:0"></div>
+      <div style="padding:0 var(--sp-4);margin-top:-32px">
+        <span class="avatar avatar-lg avatar-img" style="border:3px solid var(--surface)">王</span>
+        <h4 style="margin-top:var(--sp-2)">王小明</h4>
+        <p style="font-size:var(--fs-xs)">產品設計師 · 台北</p>
+      </div>
+      <div class="stats-row">
+        <div><b>128</b><span>貼文</span></div>
+        <div><b>3.2k</b><span>粉絲</span></div>
+        <div><b>256</b><span>追蹤中</span></div>
+      </div>
+      <div style="padding:0 var(--sp-4) var(--sp-4)"><button class="btn btn-outline btn-block btn-sm">編輯個人檔案</button></div>
+      <ul class="list" style="border-radius:0;border-left:none;border-right:none">
+        <li class="list-item">🗂️<div class="grow"><div class="title">我的作品</div></div><span class="chevron">›</span></li>
+        <li class="list-item">🔖<div class="grow"><div class="title">珍藏</div></div><span class="chevron">›</span></li>
+        <li class="list-item">⚙️<div class="grow"><div class="title">帳號設定</div></div><span class="chevron">›</span></li>
+        <li class="list-item">🚪<div class="grow"><div class="title" style="color:var(--danger)">登出</div></div></li>
+      </ul>
+    </div>
+  </div>
+  <div class="phone-caption">個人頁 Profile</div>
+  </div>
+
+  <!-- 電商 Shop -->
+  <div class="phone-demo">
+  <div class="phone">
+    <div class="statusbar"><span>9:41</span><span>📶 🔋 100%</span></div>
+    <div class="content">
+      <input class="input" placeholder="🔍 搜尋商品…" style="border-radius:var(--radius-full);flex-shrink:0">
+      <div class="story-row">
+        <div class="story"><div class="story-ring"><div class="inner">🔥</div></div>熱門</div>
+        <div class="story"><div class="story-ring"><div class="inner">👗</div></div>服飾</div>
+        <div class="story"><div class="story-ring"><div class="inner">📱</div></div>3C</div>
+        <div class="story"><div class="story-ring"><div class="inner">🏠</div></div>居家</div>
+        <div class="story"><div class="story-ring"><div class="inner">💄</div></div>美妝</div>
+      </div>
+      <div class="prod-grid">
+        <div class="prod-card">
+          <div class="prod-img" style="background:linear-gradient(135deg,var(--secondary),var(--primary))"></div>
+          <button class="prod-fav">♡</button>
+          <div class="prod-body"><div class="prod-name">無線藍牙耳機</div><div class="prod-price">$1,290<span class="orig">$1,690</span></div></div>
+        </div>
+        <div class="prod-card">
+          <div class="prod-img" style="background:linear-gradient(135deg,var(--accent),var(--danger))"></div>
+          <button class="prod-fav on" style="color:var(--danger)">♥</button>
+          <div class="prod-body"><div class="prod-name">極簡後背包</div><div class="prod-price">$890</div></div>
+        </div>
+        <div class="prod-card">
+          <div class="prod-img" style="background:linear-gradient(135deg,var(--success),var(--secondary))"></div>
+          <button class="prod-fav">♡</button>
+          <div class="prod-body"><div class="prod-name">保溫隨行杯</div><div class="prod-price">$450<span class="orig">$590</span></div></div>
+        </div>
+        <div class="prod-card">
+          <div class="prod-img" style="background:linear-gradient(135deg,var(--primary),var(--accent))"></div>
+          <button class="prod-fav">♡</button>
+          <div class="prod-body"><div class="prod-name">桌上型檯燈</div><div class="prod-price">$1,180</div></div>
+        </div>
+      </div>
+    </div>
+    <nav class="bottom-nav">
+      <a href="#mobile" class="active"><span class="ico">🏠</span>首頁</a>
+      <a href="#mobile"><span class="ico">🗂️</span>分類</a>
+      <a href="#mobile"><span class="ico" style="position:relative">🛒<span class="badge badge-danger" style="position:absolute;top:-4px;right:-12px">2</span></span>購物車</a>
+      <a href="#mobile"><span class="ico">👤</span>會員</a>
+    </nav>
+  </div>
+  <div class="phone-caption">電商 Shop</div>
+  </div>
+
+  <!-- 設定頁 Settings -->
+  <div class="phone-demo">
+  <div class="phone">
+    <div class="statusbar"><span>9:41</span><span>📶 🔋 100%</span></div>
+    <div class="appbar"><button class="icon-btn">‹</button><span class="title">設定</span></div>
+    <div class="content">
+      <div class="settings-label">帳號</div>
+      <ul class="list">
+        <li class="list-item"><span class="avatar avatar-sm avatar-img">王</span><div class="grow"><div class="title">王小明</div><div class="sub">johnson@example.com</div></div><span class="chevron">›</span></li>
+      </ul>
+      <div class="settings-label">偏好設定</div>
+      <ul class="list">
+        <li class="list-item">🔔<div class="grow"><div class="title">推播通知</div></div><label class="switch"><input type="checkbox" checked><span class="track"></span></label></li>
+        <li class="list-item">🌙<div class="grow"><div class="title">深色模式（真的能切換）</div></div><label class="switch"><input type="checkbox" id="phoneDarkSwitch"><span class="track"></span></label></li>
+        <li class="list-item">🌐<div class="grow"><div class="title">語言</div><div class="sub">繁體中文</div></div><span class="chevron">›</span></li>
+      </ul>
+      <div class="settings-label">其他</div>
+      <ul class="list">
+        <li class="list-item">📄<div class="grow"><div class="title">服務條款</div></div><span class="chevron">›</span></li>
+        <li class="list-item">🛟<div class="grow"><div class="title">客服中心</div></div><span class="chevron">›</span></li>
+        <li class="list-item">ℹ️<div class="grow"><div class="title">版本</div></div><span style="font-size:var(--fs-xs);color:var(--text-3)">v2.4.1</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="phone-caption">設定頁 Settings</div>
+  </div>
+
+  <!-- 通知中心 Notifications -->
+  <div class="phone-demo">
+  <div class="phone">
+    <div class="statusbar"><span>9:41</span><span>📶 🔋 100%</span></div>
+    <div class="appbar"><span class="title">通知</span><button class="icon-btn">⚙️</button></div>
+    <div class="content" style="gap:var(--sp-3)">
+      <div class="segmented" style="display:flex;flex-shrink:0">
+        <button class="active" style="flex:1">全部</button><button style="flex:1">未讀</button><button style="flex:1">提及</button>
+      </div>
+      <ul class="list">
+        <li class="list-item notif-unread">❤️<div class="grow"><div class="title">李美華 喜歡你的貼文</div><div class="sub">5 分鐘前</div></div><span class="unread-dot"></span></li>
+        <li class="list-item notif-unread">💬<div class="grow"><div class="title">陳大文 留言：「太強了！」</div><div class="sub">32 分鐘前</div></div><span class="unread-dot"></span></li>
+        <li class="list-item">👥<div class="grow"><div class="title">3 位新粉絲追蹤了你</div><div class="sub">2 小時前</div></div></li>
+        <li class="list-item">📦<div class="grow"><div class="title">你的訂單已出貨</div><div class="sub">昨天</div></div></li>
+        <li class="list-item">🎉<div class="grow"><div class="title">歡迎加入！完成新手任務</div><div class="sub">3 天前</div></div></li>
+      </ul>
+      <button class="btn btn-ghost btn-sm btn-block">全部標為已讀</button>
+    </div>
+  </div>
+  <div class="phone-caption">通知中心 Notifications</div>
+  </div>
+
+  </div><!-- /.phone-grid -->
+</section>
+
+<!-- ════════════════ ⑫ 第三方整合 THIRD-PARTY ════════════════ -->
+<section class="demo-section" id="thirdparty">
+  <h2>第三方整合 Third-party <span>地圖 × 金流 × 分享 × 影片 × 客服</span></h2>
+
+  <div class="demo-block">
+    <h3>地圖 Map（點擊圖釘看地點卡片）</h3>
+    <div class="map" style="max-width:640px">
+      <div class="map-canvas"></div>
+      <div class="map-search"><input class="input" placeholder="🔍 搜尋地點…"></div>
+      <div class="map-zoom"><button aria-label="放大">＋</button><button aria-label="縮小">−</button></div>
+      <button class="map-pin" style="left:30%;top:38%" data-name="風格咖啡 Style Café" data-rating="4.8" data-count="324" data-addr="台北市大安區設計路 88 號">📍</button>
+      <button class="map-pin" style="left:58%;top:26%" data-name="UI 選物店" data-rating="4.5" data-count="167" data-addr="台北市中山區元件街 12 號">📍</button>
+      <button class="map-pin" style="left:72%;top:58%" data-name="Token 燒肉" data-rating="4.9" data-count="512" data-addr="台北市信義區變數巷 3 號">📍</button>
+      <div class="map-me" style="left:45%;top:66%"><div class="core"></div></div>
+      <div class="map-card" id="mapCard">
+        <div class="name" id="mapName">風格咖啡 Style Café</div>
+        <div class="rating" id="mapRating">★★★★★ 4.8 <i>(324 則評論)</i></div>
+        <div class="addr" id="mapAddr">台北市大安區設計路 88 號</div>
+        <div class="actions">
+          <button class="btn btn-primary btn-sm">🧭 導航</button>
+          <button class="btn btn-secondary btn-sm">詳細資訊</button>
+          <button class="btn btn-ghost btn-sm" id="mapCardClose">✕</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-block">
+    <h3>金流付款 Payment（卡號自動格式化）</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--sp-4);max-width:680px">
+      <div class="card"><div class="card-body">
+        <div class="card-title" style="font-size:var(--fs-md)">訂單摘要</div>
+        <div class="order-line"><span>專業方案 × 1</span><span>NT$ 490</span></div>
+        <div class="order-line"><span>折扣碼 WELCOME</span><span style="color:var(--success)">-NT$ 50</span></div>
+        <div class="order-line total"><span>總計</span><span>NT$ 440</span></div>
+        <div class="pay-wallets" style="margin-top:var(--sp-4)">
+          <button class="pay-btn pay-apple"> Apple Pay</button>
+          <button class="pay-btn pay-gpay"><b style="color:#4285F4">G</b> Google Pay</button>
+          <button class="pay-btn pay-line">LINE Pay</button>
+        </div>
+      </div></div>
+      <div class="card"><div class="card-body">
+        <div class="card-title" style="font-size:var(--fs-md)">信用卡付款</div>
+        <div class="form-group">
+          <label class="form-label">卡號</label>
+          <input class="input" id="ccNumber" inputmode="numeric" placeholder="4242 4242 4242 4242" maxlength="19">
+        </div>
+        <div class="card-row">
+          <div class="form-group" style="flex:1">
+            <label class="form-label">到期日</label>
+            <input class="input" id="ccExpiry" inputmode="numeric" placeholder="MM / YY" maxlength="7">
+          </div>
+          <div class="form-group" style="flex:1">
+            <label class="form-label">CVC</label>
+            <input class="input" inputmode="numeric" placeholder="•••" maxlength="3">
+          </div>
+        </div>
+        <button class="btn btn-primary btn-block">🔒 確認付款 NT$ 440</button>
+        <p style="font-size:var(--fs-xs);color:var(--text-3);text-align:center;margin-top:var(--sp-2)">交易由第三方金流加密處理</p>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="demo-block">
+    <h3>社群分享 Social Share</h3>
+    <div class="share-row">
+      <button class="share-btn share-fb" aria-label="分享到 Facebook">f</button>
+      <button class="share-btn share-line" aria-label="分享到 LINE">L</button>
+      <button class="share-btn share-x" aria-label="分享到 X">𝕏</button>
+      <button class="share-btn share-ig" aria-label="分享到 Instagram">◎</button>
+      <button class="share-btn share-yt" aria-label="分享到 YouTube">▶</button>
+      <span style="color:var(--text-3)">|</span>
+      <button class="btn btn-secondary btn-sm">🔗 複製連結</button>
+    </div>
+  </div>
+
+  <div class="demo-block">
+    <h3>影片嵌入 Video Embed（點擊播放）</h3>
+    <div class="video" id="videoEmbed" style="max-width:560px">
+      <div class="vignette"></div>
+      <div class="vtitle">產品介紹影片 — 3:24</div>
+      <button class="play" aria-label="播放">▶</button>
+      <div class="vbar"><i id="videoBar"></i></div>
+    </div>
+  </div>
+
+  <div class="demo-block">
+    <h3>客服聊天小工具 Support Widget（點右下角泡泡）</h3>
+    <div class="cs-demo" style="max-width:640px">
+      <div class="hint">網站內容區（右下角是常見的第三方客服入口）</div>
+      <div class="cs-panel" id="csPanel">
+        <div class="cs-head">👋 嗨，需要幫忙嗎？<small>客服通常在 5 分鐘內回覆</small></div>
+        <div class="cs-body">
+          <div class="bubble-row"><div class="bubble" style="font-size:var(--fs-xs)">你好！我是客服小助手，有什麼可以幫你的？</div></div>
+        </div>
+        <div class="cs-quick">
+          <span class="chip">訂單查詢</span>
+          <span class="chip">退換貨</span>
+          <span class="chip">聯絡真人</span>
+        </div>
+      </div>
+      <button class="cs-bubble" id="csBubble" aria-label="開啟客服">💬</button>
+    </div>
+  </div>
+
+  <div class="demo-block">
+    <h3>Cookie 同意橫幅 Consent Banner</h3>
+    <div class="cookie-banner" id="cookieBanner" style="max-width:640px">
+      <p>🍪 本網站使用 Cookie 以提供更好的瀏覽體驗。繼續使用即表示你同意我們的 <a href="#thirdparty">隱私權政策</a>。</p>
+      <div class="actions">
+        <button class="btn btn-ghost btn-sm" id="cookieDecline">僅必要</button>
+        <button class="btn btn-primary btn-sm" id="cookieAccept">全部接受</button>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1605,6 +2044,7 @@ document.querySelectorAll('.segmented').forEach(seg => {
 // Toast
 document.getElementById('toastBtn').addEventListener('click', () => {
   const t = document.getElementById('toast');
+  t.textContent = '✅ 操作成功！這是一則 Toast 通知';
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2500);
 });
@@ -1932,6 +2372,95 @@ document.getElementById('popoverBtn').addEventListener('click', e => {
   popover.classList.toggle('open');
 });
 document.addEventListener('click', () => popover.classList.remove('open'));
+
+/* ═══ 手機 App 畫面 Mobile Screens ═══ */
+
+// 聊天室：實際可送出訊息
+const chatBody = document.getElementById('chatBody');
+const chatField = document.getElementById('chatField');
+function sendChat() {
+  const text = chatField.value.trim();
+  if (!text) return;
+  const row = document.createElement('div');
+  row.className = 'bubble-row me';
+  row.innerHTML = '<span class="bubble-time">現在</span><div class="bubble"></div>';
+  row.querySelector('.bubble').textContent = text;
+  chatBody.appendChild(row);
+  chatField.value = '';
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+document.getElementById('chatSend').addEventListener('click', sendChat);
+chatField.addEventListener('keydown', e => { if (e.key === 'Enter') sendChat(); });
+
+// 商品收藏愛心
+document.querySelectorAll('.prod-fav').forEach(b => b.addEventListener('click', () => {
+  b.classList.toggle('on');
+  b.textContent = b.classList.contains('on') ? '♥' : '♡';
+}));
+
+// 設定頁的深色模式開關（跟頂部切換連動）
+document.getElementById('phoneDarkSwitch').addEventListener('change', () => themeToggle.click());
+
+/* ═══ 第三方整合 Third-party ═══ */
+
+// 地圖圖釘 → 地點卡片
+const mapCard = document.getElementById('mapCard');
+document.querySelectorAll('.map-pin').forEach(pin => pin.addEventListener('click', () => {
+  document.querySelectorAll('.map-pin').forEach(p => p.classList.remove('active'));
+  pin.classList.add('active');
+  const rating = +pin.dataset.rating;
+  document.getElementById('mapName').textContent = pin.dataset.name;
+  document.getElementById('mapRating').innerHTML =
+    '★'.repeat(Math.round(rating)) + '☆'.repeat(5 - Math.round(rating)) +
+    ` ${rating} <i>(${pin.dataset.count} 則評論)</i>`;
+  document.getElementById('mapAddr').textContent = pin.dataset.addr;
+  mapCard.classList.add('open');
+}));
+document.getElementById('mapCardClose').addEventListener('click', () => {
+  mapCard.classList.remove('open');
+  document.querySelectorAll('.map-pin').forEach(p => p.classList.remove('active'));
+});
+
+// 信用卡卡號自動格式化（每 4 碼加空格）
+document.getElementById('ccNumber').addEventListener('input', e => {
+  e.target.value = e.target.value.replace(/\D/g, '').slice(0, 16).replace(/(\d{4})(?=\d)/g, '$1 ');
+});
+// 到期日自動格式化 MM / YY
+document.getElementById('ccExpiry').addEventListener('input', e => {
+  const v = e.target.value.replace(/\D/g, '').slice(0, 4);
+  e.target.value = v.length > 2 ? v.slice(0, 2) + ' / ' + v.slice(2) : v;
+});
+
+// 影片：點擊播放（模擬進度條）
+const videoEmbed = document.getElementById('videoEmbed');
+let videoTimer;
+videoEmbed.addEventListener('click', () => {
+  const playing = videoEmbed.classList.toggle('playing');
+  clearInterval(videoTimer);
+  const bar = document.getElementById('videoBar');
+  if (playing) {
+    let pct = parseFloat(bar.style.width) || 0;
+    videoTimer = setInterval(() => {
+      pct = Math.min(100, pct + 0.5);
+      bar.style.width = pct + '%';
+      if (pct >= 100) { clearInterval(videoTimer); videoEmbed.classList.remove('playing'); bar.style.width = '0%'; }
+    }, 100);
+  }
+});
+
+// 客服小工具
+const csPanel = document.getElementById('csPanel');
+document.getElementById('csBubble').addEventListener('click', () => csPanel.classList.toggle('open'));
+
+// Cookie 橫幅
+const cookieBanner = document.getElementById('cookieBanner');
+['cookieAccept', 'cookieDecline'].forEach(id => document.getElementById(id).addEventListener('click', () => {
+  cookieBanner.style.display = 'none';
+  const t = document.getElementById('toast');
+  t.textContent = '🍪 已儲存你的 Cookie 偏好（示範，重新整理會復原）';
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}));
 
 // 回到頂部 Back to Top
 const backTop = document.getElementById('backTop');
