@@ -366,6 +366,43 @@ code { font-family: var(--font-mono); font-size: 0.9em; background: var(--surfac
 .list-item .sub { font-size: var(--fs-xs); color: var(--text-3); }
 .list-item .chevron { color: var(--text-3); }
 
+/* 樹狀列 Tree View */
+.tree { list-style: none; font-size: var(--fs-sm); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--sp-3); }
+.tree ul { list-style: none; padding-left: 20px; margin-left: 10px; border-left: 1px dashed var(--border); }
+.tree .node { display: flex; align-items: center; gap: 6px; padding: 5px 8px; border-radius: var(--radius-sm); cursor: pointer; color: var(--text); user-select: none; }
+.tree .node:hover { background: var(--surface-2); }
+.tree .node.selected { background: var(--primary-light); color: var(--primary); font-weight: var(--fw-medium); }
+.tree .twist { width: 14px; text-align: center; font-size: 10px; color: var(--text-3); transition: transform var(--transition); flex-shrink: 0; }
+.tree li.collapsed > ul { display: none; }
+.tree li.collapsed > .node .twist { transform: rotate(-90deg); }
+.tree .node .badge { margin-left: auto; }
+
+/* 待辦清單 Checklist */
+.checklist { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.checklist label { display: flex; gap: 10px; align-items: center; padding: 10px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); cursor: pointer; font-size: var(--fs-sm); transition: all var(--transition); }
+.checklist label:hover { border-color: var(--primary); }
+.checklist input { width: 17px; height: 17px; accent-color: var(--primary); cursor: pointer; flex-shrink: 0; }
+.checklist input:checked ~ span { text-decoration: line-through; color: var(--text-3); }
+
+/* 分組列表 Grouped List（黏性群組標題） */
+.grouped { max-height: 264px; overflow-y: auto; }
+.group-header { position: sticky; top: 0; z-index: 1; background: var(--surface-2); padding: 4px var(--sp-4); font-size: var(--fs-xs); color: var(--text-3); font-weight: var(--fw-medium); letter-spacing: .05em; }
+
+/* 排行榜 Ranking List */
+.rank-num { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: var(--fw-bold); font-size: var(--fs-sm); background: var(--surface-2); color: var(--text-2); flex-shrink: 0; }
+.rank-num.r1 { background: var(--accent); color: #fff; }
+.rank-num.r2 { background: #94A3B8; color: #fff; }
+.rank-num.r3 { background: #B45309; color: #fff; }
+.rank-delta { font-size: var(--fs-xs); font-weight: var(--fw-medium); }
+.rank-delta.up { color: var(--success); }
+.rank-delta.down { color: var(--danger); }
+
+/* 描述列表 Description List（規格表） */
+.desc-list { display: grid; grid-template-columns: minmax(96px, auto) 1fr; margin: 0; font-size: var(--fs-sm); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+.desc-list dt { background: var(--surface-2); color: var(--text-2); padding: 10px var(--sp-4); border-bottom: 1px solid var(--border); }
+.desc-list dd { background: var(--surface); color: var(--text); padding: 10px var(--sp-4); border-bottom: 1px solid var(--border); margin: 0; }
+.desc-list dt:last-of-type, .desc-list dd:last-of-type { border-bottom: none; }
+
 .badge {
   display: inline-flex; align-items: center; gap: 4px;
   padding: 2px 10px; font-size: var(--fs-xs); font-weight: var(--fw-medium);
@@ -1618,6 +1655,89 @@ code { font-family: var(--font-mono); font-size: 0.9em; background: var(--surfac
         <span class="chevron">›</span>
       </li>
     </ul>
+  </div>
+
+  <div class="demo-block">
+    <h3>樹狀列 Tree View（點資料夾展開/收合，點節點選取）</h3>
+    <ul class="tree" id="treeView" style="max-width:420px">
+      <li>
+        <div class="node"><span class="twist">▾</span>📁 src</div>
+        <ul>
+          <li>
+            <div class="node"><span class="twist">▾</span>📁 components</div>
+            <ul>
+              <li><div class="node selected"><span class="twist"></span>🧩 Button.tsx</div></li>
+              <li><div class="node"><span class="twist"></span>🧩 Card.tsx</div></li>
+              <li><div class="node"><span class="twist"></span>🧩 Modal.tsx <span class="badge badge-warning">M</span></div></li>
+            </ul>
+          </li>
+          <li class="collapsed">
+            <div class="node"><span class="twist">▾</span>📁 pages</div>
+            <ul>
+              <li><div class="node"><span class="twist"></span>📄 index.tsx</div></li>
+              <li><div class="node"><span class="twist"></span>📄 about.tsx</div></li>
+            </ul>
+          </li>
+          <li><div class="node"><span class="twist"></span>📄 app.tsx</div></li>
+          <li><div class="node"><span class="twist"></span>🎨 theme.css <span class="badge badge-primary">Tokens</span></div></li>
+        </ul>
+      </li>
+      <li class="collapsed">
+        <div class="node"><span class="twist">▾</span>📁 public</div>
+        <ul>
+          <li><div class="node"><span class="twist"></span>🖼️ favicon.ico</div></li>
+        </ul>
+      </li>
+      <li><div class="node"><span class="twist"></span>📦 package.json</div></li>
+    </ul>
+  </div>
+
+  <div class="demo-block">
+    <h3>待辦清單 Checklist（勾選會劃掉）</h3>
+    <ul class="checklist" style="max-width:420px">
+      <li><label><input type="checkbox" checked><span>定義 Design Tokens</span></label></li>
+      <li><label><input type="checkbox" checked><span>完成元件庫</span></label></li>
+      <li><label><input type="checkbox"><span>套用到正式專案</span></label></li>
+      <li><label><input type="checkbox"><span>撰寫使用文件</span></label></li>
+    </ul>
+  </div>
+
+  <div class="demo-block">
+    <h3>分組列表 Grouped List（群組標題會黏在頂端）</h3>
+    <ul class="list grouped" style="max-width:420px">
+      <li class="group-header">設計部</li>
+      <li class="list-item"><span class="avatar avatar-sm avatar-img">王</span><div class="grow"><div class="title">王小明</div><div class="sub">UI 設計師</div></div></li>
+      <li class="list-item"><span class="avatar avatar-sm">李</span><div class="grow"><div class="title">李美華</div><div class="sub">UX 研究員</div></div></li>
+      <li class="group-header">工程部</li>
+      <li class="list-item"><span class="avatar avatar-sm">陳</span><div class="grow"><div class="title">陳大文</div><div class="sub">前端工程師</div></div></li>
+      <li class="list-item"><span class="avatar avatar-sm avatar-img">林</span><div class="grow"><div class="title">林志豪</div><div class="sub">後端工程師</div></div></li>
+      <li class="list-item"><span class="avatar avatar-sm">張</span><div class="grow"><div class="title">張雅婷</div><div class="sub">App 工程師</div></div></li>
+      <li class="group-header">行銷部</li>
+      <li class="list-item"><span class="avatar avatar-sm">黃</span><div class="grow"><div class="title">黃冠宇</div><div class="sub">行銷企劃</div></div></li>
+      <li class="list-item"><span class="avatar avatar-sm avatar-img">吳</span><div class="grow"><div class="title">吳佩珊</div><div class="sub">社群小編</div></div></li>
+    </ul>
+  </div>
+
+  <div class="demo-block">
+    <h3>排行榜 Ranking</h3>
+    <ul class="list" style="max-width:420px">
+      <li class="list-item"><span class="rank-num r1">1</span><div class="grow"><div class="title">無線降噪藍牙耳機</div><div class="sub">銷量 2,140</div></div><span class="rank-delta up">▲ 2</span></li>
+      <li class="list-item"><span class="rank-num r2">2</span><div class="grow"><div class="title">陶瓷保溫隨行杯</div><div class="sub">銷量 1,873</div></div><span class="rank-delta down">▼ 1</span></li>
+      <li class="list-item"><span class="rank-num r3">3</span><div class="grow"><div class="title">極簡防潑水後背包</div><div class="sub">銷量 1,521</div></div><span class="rank-delta up">▲ 4</span></li>
+      <li class="list-item"><span class="rank-num">4</span><div class="grow"><div class="title">護眼桌上型檯燈</div><div class="sub">銷量 986</div></div><span class="rank-delta" style="color:var(--text-3)">—</span></li>
+    </ul>
+  </div>
+
+  <div class="demo-block">
+    <h3>描述列表 Description List（規格表）</h3>
+    <dl class="desc-list" style="max-width:420px">
+      <dt>品牌</dt><dd>StyleSound</dd>
+      <dt>型號</dt><dd>SS-ANC Pro 2</dd>
+      <dt>藍牙版本</dt><dd>5.4</dd>
+      <dt>續航力</dt><dd>32 小時（含充電盒）</dd>
+      <dt>防水等級</dt><dd>IPX4</dd>
+      <dt>保固</dt><dd>原廠一年保固</dd>
+    </dl>
   </div>
 
   <div class="demo-block">
@@ -2912,6 +3032,17 @@ const cookieBanner = document.getElementById('cookieBanner');
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2500);
 }));
+
+/* ═══ 樹狀列 Tree View ═══ */
+const treeView = document.getElementById('treeView');
+treeView.addEventListener('click', e => {
+  const node = e.target.closest('.node');
+  if (!node) return;
+  const li = node.parentElement;
+  if (li.querySelector(':scope > ul')) li.classList.toggle('collapsed'); // 有子層 → 展開/收合
+  treeView.querySelectorAll('.node').forEach(n => n.classList.remove('selected'));
+  node.classList.add('selected');
+});
 
 /* ═══ 電商版面 Commerce ═══ */
 
