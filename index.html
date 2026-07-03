@@ -689,6 +689,117 @@ code { font-family: var(--font-mono); font-size: 0.9em; background: var(--surfac
 .cookie-banner .actions { display: flex; gap: var(--sp-2); }
 
 /* ═══════════════════════════════════════════════════════
+   ⑯ 電商版面 COMMERCE
+   （促銷 / 商品列表 / 商品詳情 / 閃購 / 優惠券 / 評價 / 購物車）
+   ═══════════════════════════════════════════════════════ */
+/* 倒數計時 Countdown */
+.countdown { display: inline-flex; align-items: center; gap: 4px; }
+.countdown b { background: var(--text); color: var(--bg); padding: 4px 7px; border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: var(--fs-sm); min-width: 32px; text-align: center; font-variant-numeric: tabular-nums; }
+.countdown i { font-style: normal; font-weight: var(--fw-bold); color: var(--text-2); }
+
+/* 促銷橫幅 Promo Banner */
+.promo-banner { display: flex; align-items: center; gap: var(--sp-5); flex-wrap: wrap; padding: var(--sp-5); border-radius: var(--radius-lg); background: linear-gradient(120deg, var(--primary), var(--secondary)); color: #fff; }
+.promo-banner h3 { color: #fff; }
+.promo-banner p { color: rgba(255,255,255,.85); font-size: var(--fs-sm); }
+.promo-banner .grow { flex: 1; min-width: 200px; }
+.promo-banner .countdown b { background: rgba(255,255,255,.95); color: var(--primary); }
+.promo-banner .countdown i { color: #fff; }
+
+/* 商品列表版型 Shop Layout */
+.shop-layout { display: grid; grid-template-columns: 210px 1fr; gap: var(--sp-4); }
+.filter-panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--sp-4); align-self: start; }
+.filter-panel h5 { font-size: var(--fs-sm); margin: var(--sp-3) 0 var(--sp-2); }
+.filter-panel h5:first-child { margin-top: 0; }
+.filter-panel .check-item { margin-bottom: var(--sp-1); }
+.shop-toolbar { display: flex; align-items: center; gap: var(--sp-3); flex-wrap: wrap; margin-bottom: var(--sp-3); }
+.shop-toolbar .count { font-size: var(--fs-sm); color: var(--text-2); flex: 1; }
+.shop-toolbar .select { width: auto; padding: 6px 10px; }
+
+/* 商品卡（網頁版）Product Card Web */
+.pcard-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: var(--sp-3); }
+.pcard { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; position: relative; transition: box-shadow var(--transition), transform var(--transition); }
+.pcard:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.pcard .img { height: 120px; position: relative; }
+.pcard .badges { position: absolute; top: 8px; left: 8px; display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
+.pcard .quick-add { position: absolute; left: 8px; right: 8px; bottom: 8px; opacity: 0; transform: translateY(6px); transition: all var(--transition); }
+.pcard:hover .quick-add { opacity: 1; transform: none; }
+.pcard .body { padding: 10px 12px; }
+.pcard .name { font-size: var(--fs-sm); color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pcard .rate { font-size: var(--fs-xs); color: var(--accent); }
+.pcard .rate i { font-style: normal; color: var(--text-3); }
+.pcard .price { font-size: var(--fs-md); font-weight: var(--fw-bold); color: var(--primary); }
+.pcard .price .orig { font-size: var(--fs-xs); color: var(--text-3); text-decoration: line-through; font-weight: var(--fw-regular); margin-left: 4px; }
+
+/* 商品詳情 Product Detail */
+.pdp-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--sp-5); }
+.gallery-main { height: 260px; border-radius: var(--radius-lg); transition: background .3s ease; }
+.gallery-thumbs { display: flex; gap: var(--sp-2); margin-top: var(--sp-2); }
+.gallery-thumbs .thumb { width: 56px; height: 56px; border-radius: var(--radius-sm); cursor: pointer; border: 2px solid transparent; transition: border-color var(--transition); }
+.gallery-thumbs .thumb.active { border-color: var(--primary); }
+.swatch-dots { display: flex; gap: var(--sp-2); }
+.swatch-dot { width: 28px; height: 28px; border-radius: 50%; cursor: pointer; border: 2px solid var(--border); transition: all var(--transition); }
+.swatch-dot.selected { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-light); }
+.opt-label { font-size: var(--fs-sm); font-weight: var(--fw-medium); margin: var(--sp-3) 0 var(--sp-2); }
+.opt-label span { color: var(--text-3); font-weight: var(--fw-regular); }
+.pdp-price { font-size: var(--fs-2xl); font-weight: var(--fw-bold); color: var(--danger); }
+.pdp-price .orig { font-size: var(--fs-sm); color: var(--text-3); text-decoration: line-through; font-weight: var(--fw-regular); margin-left: 6px; }
+.pdp-meta { font-size: var(--fs-xs); color: var(--text-2); display: flex; flex-direction: column; gap: 4px; margin-top: var(--sp-3); }
+
+/* 閃購 Flash Sale */
+.flash-card { border: 1px solid color-mix(in srgb, var(--danger) 30%, transparent); background: var(--danger-bg); }
+.flash-card .sold { font-size: var(--fs-xs); color: var(--danger); margin-top: var(--sp-2); }
+.flash-card .progress { background: color-mix(in srgb, var(--danger) 15%, transparent); margin-top: 4px; }
+.flash-card .progress-bar { background: var(--danger); }
+
+/* 優惠券 Coupon */
+.coupon { display: flex; border: 1.5px dashed var(--primary); border-radius: var(--radius-md); background: var(--primary-light); overflow: hidden; max-width: 360px; }
+.coupon .val { min-width: 100px; padding: var(--sp-4); display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--primary); border-right: 1.5px dashed var(--primary); }
+.coupon .val b { font-size: var(--fs-2xl); line-height: 1.1; }
+.coupon .val span { font-size: var(--fs-xs); }
+.coupon .info { flex: 1; padding: var(--sp-3) var(--sp-4); display: flex; flex-direction: column; gap: 2px; justify-content: center; }
+.coupon .info .title { font-size: var(--fs-sm); font-weight: var(--fw-medium); color: var(--text); }
+.coupon .info .cond { font-size: var(--fs-xs); color: var(--text-3); }
+.coupon .get { align-self: center; margin-right: var(--sp-3); }
+
+/* 評價 Reviews */
+.review-summary { display: flex; gap: var(--sp-5); flex-wrap: wrap; align-items: center; }
+.review-score { text-align: center; }
+.review-score b { font-size: 44px; line-height: 1; color: var(--text); }
+.review-score .st { color: var(--accent); font-size: var(--fs-sm); }
+.review-score .n { font-size: var(--fs-xs); color: var(--text-3); }
+.rv-rows { flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: 6px; }
+.rv-row { display: flex; align-items: center; gap: 8px; font-size: var(--fs-xs); color: var(--text-2); }
+.rv-row .progress { flex: 1; height: 6px; }
+.rv-row .pct { min-width: 32px; text-align: right; font-variant-numeric: tabular-nums; }
+.review-card .head { display: flex; align-items: center; gap: var(--sp-3); margin-bottom: var(--sp-2); }
+.review-card .st { color: var(--accent); font-size: var(--fs-xs); }
+.review-card .date { font-size: var(--fs-xs); color: var(--text-3); }
+.review-card .rv-imgs { display: flex; gap: var(--sp-2); margin-top: var(--sp-3); }
+.review-card .rv-imgs div { width: 56px; height: 56px; border-radius: var(--radius-sm); }
+
+/* 購物車版型 Cart Layout */
+.cart-layout { display: grid; grid-template-columns: 1fr 280px; gap: var(--sp-4); align-items: start; }
+.cart-item { display: flex; gap: var(--sp-3); align-items: center; padding: var(--sp-3) var(--sp-4); border-bottom: 1px solid var(--border); }
+.cart-item:last-child { border-bottom: none; }
+.cart-thumb { width: 60px; height: 60px; border-radius: var(--radius-sm); flex-shrink: 0; }
+.cart-item .info { flex: 1; min-width: 0; }
+.cart-item .name { font-size: var(--fs-sm); font-weight: var(--fw-medium); }
+.cart-item .spec { font-size: var(--fs-xs); color: var(--text-3); }
+.cart-item .price { font-weight: var(--fw-bold); color: var(--text); white-space: nowrap; }
+.cart-item .del { background: none; border: none; color: var(--text-3); cursor: pointer; font-size: 15px; }
+.cart-item .del:hover { color: var(--danger); }
+.qty.qty-sm button { width: 26px; height: 26px; font-size: 13px; }
+.qty.qty-sm input { width: 34px; height: 26px; font-size: var(--fs-xs); }
+
+/* 手機版 PDP 底部列 */
+.pdp-bar { display: flex; gap: 8px; padding: 10px 12px; background: var(--surface); border-top: 1px solid var(--border); align-items: center; }
+.pdp-bar .icon-btn { background: none; border: none; font-size: 20px; cursor: pointer; color: var(--text-2); }
+
+@media (max-width: 720px) {
+  .shop-layout, .cart-layout { grid-template-columns: 1fr; }
+}
+
+/* ═══════════════════════════════════════════════════════
    ⑫ 版面模式 LAYOUT PATTERNS（Hero / 特色區 / 側欄 / Footer）
    ═══════════════════════════════════════════════════════ */
 .hero {
@@ -904,6 +1015,7 @@ code { font-family: var(--font-mono); font-size: 0.9em; background: var(--surfac
     <a href="#buttons">按鈕</a>
     <a href="#forms">表單</a>
     <a href="#cards">卡片</a>
+    <a href="#commerce">商城</a>
     <a href="#nav">導覽</a>
     <a href="#data">資料</a>
     <a href="#feedback">回饋</a>
@@ -1154,6 +1266,260 @@ code { font-family: var(--font-mono); font-size: 0.9em; background: var(--surfac
         <ul><li>✓ 全部功能</li><li>✓ 10 位使用者</li><li>✓ 優先支援</li></ul>
         <button class="btn btn-primary btn-block">立即升級</button>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ ④b 電商版面 COMMERCE ════════════════ -->
+<section class="demo-section" id="commerce">
+  <h2>電商版面 Commerce <span>促銷 × 商品列表 × 詳情頁 × 優惠券 × 評價 × 購物車</span></h2>
+
+  <div class="demo-block">
+    <h3>促銷橫幅 + 倒數計時（真的會倒數）</h3>
+    <div class="promo-banner">
+      <div class="grow">
+        <span class="badge" style="background:rgba(255,255,255,.2);color:#fff">🔥 限時特賣</span>
+        <h3 style="margin-top:var(--sp-2)">夏季全館 5 折起</h3>
+        <p>指定商品滿千再折 100，數量有限售完為止。</p>
+      </div>
+      <div class="countdown">
+        <b class="cd-h">02</b><i>:</i><b class="cd-m">34</b><i>:</i><b class="cd-s">56</b>
+      </div>
+      <button class="btn btn-lg" style="background:#fff;color:var(--primary)">立即搶購</button>
+    </div>
+  </div>
+
+  <div class="demo-block">
+    <h3>商品列表頁版型（篩選側欄 + 工具列 + 商品網格）</h3>
+    <div class="shop-layout">
+      <aside class="filter-panel">
+        <h5>分類</h5>
+        <label class="check-item"><input type="checkbox" checked> 3C 配件</label>
+        <label class="check-item"><input type="checkbox"> 生活居家</label>
+        <label class="check-item"><input type="checkbox"> 服飾包款</label>
+        <h5>價格</h5>
+        <label class="check-item"><input type="radio" name="pr"> $500 以下</label>
+        <label class="check-item"><input type="radio" name="pr" checked> $500 – $2,000</label>
+        <label class="check-item"><input type="radio" name="pr"> $2,000 以上</label>
+        <h5>評分</h5>
+        <label class="check-item"><input type="checkbox" checked> ★ 4 以上</label>
+        <h5>其他</h5>
+        <label class="check-item"><input type="checkbox"> 免運</label>
+        <label class="check-item"><input type="checkbox"> 有折扣</label>
+        <button class="btn btn-outline btn-sm btn-block" style="margin-top:var(--sp-3)">套用篩選</button>
+      </aside>
+      <div>
+        <div class="shop-toolbar">
+          <span class="count">共 128 件商品</span>
+          <select class="select"><option>綜合排序</option><option>價格低到高</option><option>價格高到低</option><option>銷量最高</option><option>最新上架</option></select>
+        </div>
+        <div class="pcard-grid">
+          <div class="pcard">
+            <div class="img" style="background:linear-gradient(135deg,var(--secondary),var(--primary))">
+              <div class="badges"><span class="badge badge-danger">-24%</span></div>
+              <button class="btn btn-primary btn-sm btn-block quick-add">🛒 快速加入</button>
+            </div>
+            <div class="body">
+              <div class="name">無線降噪藍牙耳機</div>
+              <div class="rate">★★★★★ <i>4.8 (324)</i></div>
+              <div class="price">$1,290<span class="orig">$1,690</span></div>
+            </div>
+          </div>
+          <div class="pcard">
+            <div class="img" style="background:linear-gradient(135deg,var(--accent),var(--danger))">
+              <div class="badges"><span class="badge badge-primary">新品</span></div>
+              <button class="btn btn-primary btn-sm btn-block quick-add">🛒 快速加入</button>
+            </div>
+            <div class="body">
+              <div class="name">極簡防潑水後背包</div>
+              <div class="rate">★★★★☆ <i>4.5 (167)</i></div>
+              <div class="price">$890</div>
+            </div>
+          </div>
+          <div class="pcard">
+            <div class="img" style="background:linear-gradient(135deg,var(--success),var(--secondary))">
+              <div class="badges"><span class="badge badge-danger">-24%</span><span class="badge badge-success">免運</span></div>
+              <button class="btn btn-primary btn-sm btn-block quick-add">🛒 快速加入</button>
+            </div>
+            <div class="body">
+              <div class="name">陶瓷保溫隨行杯 480ml</div>
+              <div class="rate">★★★★★ <i>4.9 (512)</i></div>
+              <div class="price">$450<span class="orig">$590</span></div>
+            </div>
+          </div>
+          <div class="pcard">
+            <div class="img" style="background:linear-gradient(135deg,var(--primary),var(--accent))">
+              <button class="btn btn-primary btn-sm btn-block quick-add">🛒 快速加入</button>
+            </div>
+            <div class="body">
+              <div class="name">護眼桌上型檯燈</div>
+              <div class="rate">★★★★☆ <i>4.3 (89)</i></div>
+              <div class="price">$1,180</div>
+            </div>
+          </div>
+        </div>
+        <ul class="pagination" style="margin-top:var(--sp-4);justify-content:center">
+          <li><a href="#commerce">‹</a></li><li><a href="#commerce" class="active">1</a></li><li><a href="#commerce">2</a></li><li><a href="#commerce">3</a></li><li><a href="#commerce">›</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-block">
+    <h3>商品詳情頁版型（縮圖切換 + 規格選擇）</h3>
+    <div class="card"><div class="card-body pdp-layout">
+      <div>
+        <div class="gallery-main" id="pdpMain" style="background:linear-gradient(135deg,var(--secondary),var(--primary))"></div>
+        <div class="gallery-thumbs" id="pdpThumbs">
+          <div class="thumb active" style="background:linear-gradient(135deg,var(--secondary),var(--primary))"></div>
+          <div class="thumb" style="background:linear-gradient(135deg,var(--primary),var(--accent))"></div>
+          <div class="thumb" style="background:linear-gradient(135deg,var(--accent),var(--danger))"></div>
+          <div class="thumb" style="background:linear-gradient(135deg,var(--success),var(--secondary))"></div>
+        </div>
+      </div>
+      <div>
+        <span class="badge badge-danger badge-dot">限時特價</span>
+        <h3 style="margin:var(--sp-2) 0">無線降噪藍牙耳機 Pro</h3>
+        <div class="rate" style="color:var(--accent);font-size:var(--fs-sm)">★★★★★ <span style="color:var(--text-3)">4.8｜324 則評價｜已售 2.1k</span></div>
+        <div class="pdp-price" style="margin-top:var(--sp-3)">$1,290<span class="orig">$1,690</span></div>
+        <div class="opt-label">顏色 <span id="colorName">— 石墨黑</span></div>
+        <div class="swatch-dots" id="colorDots">
+          <div class="swatch-dot selected" style="background:#1E293B" data-name="石墨黑"></div>
+          <div class="swatch-dot" style="background:#F1F5F9" data-name="雲朵白"></div>
+          <div class="swatch-dot" style="background:#4F8EF7" data-name="海洋藍"></div>
+          <div class="swatch-dot" style="background:#F4A6B8" data-name="櫻花粉"></div>
+        </div>
+        <div class="opt-label">版本</div>
+        <div class="demo-row" style="gap:var(--sp-2)" id="verChips">
+          <span class="chip selected">標準版</span>
+          <span class="chip">豪華版 +$300</span>
+        </div>
+        <div class="opt-label">數量</div>
+        <div class="qty">
+          <button aria-label="減少">−</button><input type="text" value="1" inputmode="numeric"><button aria-label="增加">＋</button>
+        </div>
+        <div class="demo-row" style="margin-top:var(--sp-4)">
+          <button class="btn btn-outline btn-lg" id="pdpAddCart">🛒 加入購物車</button>
+          <button class="btn btn-primary btn-lg">立即購買</button>
+        </div>
+        <div class="pdp-meta">
+          <span>🚚 滿 $990 免運｜預計 1–3 天到貨</span>
+          <span>↩️ 7 天鑑賞期，不滿意可退貨</span>
+          <span>🛡️ 原廠保固一年</span>
+        </div>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="demo-block">
+    <h3>閃購卡 ＆ 優惠券</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--sp-4);max-width:760px">
+      <div class="card flash-card"><div class="card-body">
+        <div class="demo-row" style="justify-content:space-between">
+          <span class="badge badge-danger">⚡ 今日閃購</span>
+          <span class="countdown"><b class="cd-h">02</b><i>:</i><b class="cd-m">34</b><i>:</i><b class="cd-s">56</b></span>
+        </div>
+        <div class="card-title" style="margin-top:var(--sp-3)">陶瓷保溫隨行杯 480ml</div>
+        <div class="pdp-price" style="font-size:var(--fs-xl)">$299<span class="orig">$590</span></div>
+        <div class="sold">已售 78%，即將完售！</div>
+        <div class="progress"><div class="progress-bar" style="width:78%"></div></div>
+      </div></div>
+      <div style="display:flex;flex-direction:column;gap:var(--sp-3)">
+        <div class="coupon">
+          <div class="val"><b>$100</b><span>折價券</span></div>
+          <div class="info"><span class="title">全館滿 $1,000 折 $100</span><span class="cond">有效期限 2026/07/31</span></div>
+          <button class="btn btn-primary btn-sm get coupon-get">領取</button>
+        </div>
+        <div class="coupon">
+          <div class="val"><b>免運</b><span>運費券</span></div>
+          <div class="info"><span class="title">不限金額免運費</span><span class="cond">新會員限定・7 天內有效</span></div>
+          <button class="btn btn-primary btn-sm get coupon-get">領取</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-block">
+    <h3>評價區 Reviews</h3>
+    <div class="card" style="max-width:640px"><div class="card-body">
+      <div class="review-summary">
+        <div class="review-score">
+          <b>4.8</b>
+          <div class="st">★★★★★</div>
+          <div class="n">324 則評價</div>
+        </div>
+        <div class="rv-rows">
+          <div class="rv-row"><span>5★</span><div class="progress"><div class="progress-bar" style="width:82%"></div></div><span class="pct">82%</span></div>
+          <div class="rv-row"><span>4★</span><div class="progress"><div class="progress-bar" style="width:12%"></div></div><span class="pct">12%</span></div>
+          <div class="rv-row"><span>3★</span><div class="progress"><div class="progress-bar" style="width:4%"></div></div><span class="pct">4%</span></div>
+          <div class="rv-row"><span>2★</span><div class="progress"><div class="progress-bar" style="width:1%"></div></div><span class="pct">1%</span></div>
+          <div class="rv-row"><span>1★</span><div class="progress"><div class="progress-bar" style="width:1%"></div></div><span class="pct">1%</span></div>
+        </div>
+      </div>
+      <hr style="border:none;border-top:1px solid var(--border);margin:var(--sp-4) 0">
+      <div class="review-card">
+        <div class="head">
+          <span class="avatar avatar-sm avatar-img">王</span>
+          <div style="flex:1">
+            <div style="font-size:var(--fs-sm);font-weight:var(--fw-medium)">王小明 <span class="badge badge-success" style="margin-left:4px">已購買</span></div>
+            <div class="st">★★★★★ <span class="date">2026/06/28・石墨黑 / 標準版</span></div>
+          </div>
+        </div>
+        <p style="font-size:var(--fs-sm)">降噪效果比預期好很多，戴一整天也不會痛，CP 值超高，推薦！</p>
+        <div class="rv-imgs">
+          <div style="background:linear-gradient(135deg,var(--secondary),var(--primary))"></div>
+          <div style="background:linear-gradient(135deg,var(--primary),var(--accent))"></div>
+        </div>
+        <div class="demo-row" style="margin-top:var(--sp-3);gap:var(--sp-2)">
+          <button class="btn btn-ghost btn-sm">👍 有幫助 (36)</button>
+          <button class="btn btn-ghost btn-sm">回覆</button>
+        </div>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="demo-block">
+    <h3>購物車頁版型（品項 + 結帳摘要）</h3>
+    <div class="cart-layout">
+      <div class="card">
+        <div class="cart-item">
+          <label class="check-item"><input type="checkbox" checked></label>
+          <div class="cart-thumb" style="background:linear-gradient(135deg,var(--secondary),var(--primary))"></div>
+          <div class="info"><div class="name">無線降噪藍牙耳機 Pro</div><div class="spec">石墨黑 / 標準版</div></div>
+          <div class="qty qty-sm"><button aria-label="減少">−</button><input type="text" value="1"><button aria-label="增加">＋</button></div>
+          <span class="price">$1,290</span>
+          <button class="del" aria-label="刪除">🗑</button>
+        </div>
+        <div class="cart-item">
+          <label class="check-item"><input type="checkbox" checked></label>
+          <div class="cart-thumb" style="background:linear-gradient(135deg,var(--success),var(--secondary))"></div>
+          <div class="info"><div class="name">陶瓷保溫隨行杯 480ml</div><div class="spec">森林綠</div></div>
+          <div class="qty qty-sm"><button aria-label="減少">−</button><input type="text" value="2"><button aria-label="增加">＋</button></div>
+          <span class="price">$598</span>
+          <button class="del" aria-label="刪除">🗑</button>
+        </div>
+        <div class="cart-item">
+          <label class="check-item"><input type="checkbox"></label>
+          <div class="cart-thumb" style="background:linear-gradient(135deg,var(--accent),var(--danger))"></div>
+          <div class="info"><div class="name">極簡防潑水後背包</div><div class="spec">沙漠棕</div></div>
+          <div class="qty qty-sm"><button aria-label="減少">−</button><input type="text" value="1"><button aria-label="增加">＋</button></div>
+          <span class="price">$890</span>
+          <button class="del" aria-label="刪除">🗑</button>
+        </div>
+      </div>
+      <div class="card"><div class="card-body">
+        <div class="card-title" style="font-size:var(--fs-md)">結帳摘要</div>
+        <div class="input-group" style="margin-bottom:var(--sp-3)">
+          <input class="input" placeholder="輸入優惠碼">
+          <button class="btn btn-secondary">套用</button>
+        </div>
+        <div class="order-line"><span>商品小計（3 件）</span><span>$1,888</span></div>
+        <div class="order-line"><span>運費</span><span style="color:var(--success)">免運</span></div>
+        <div class="order-line"><span>優惠折抵</span><span style="color:var(--success)">-$100</span></div>
+        <div class="order-line total"><span>總計</span><span style="color:var(--danger)">$1,788</span></div>
+        <button class="btn btn-primary btn-block btn-lg" style="margin-top:var(--sp-4)">前往結帳</button>
+        <p style="font-size:var(--fs-xs);color:var(--text-3);text-align:center;margin-top:var(--sp-2)">結帳流程請搭配上方「步驟指示 Stepper」與「金流付款」</p>
+      </div></div>
     </div>
   </div>
 </section>
@@ -1814,6 +2180,88 @@ code { font-family: var(--font-mono); font-size: 0.9em; background: var(--surfac
   <div class="phone-caption">通知中心 Notifications</div>
   </div>
 
+  <!-- 商品詳情 Product Detail -->
+  <div class="phone-demo">
+  <div class="phone">
+    <div class="statusbar"><span>9:41</span><span>📶 🔋 100%</span></div>
+    <div class="appbar"><button class="icon-btn">‹</button><span class="title">商品詳情</span><button class="icon-btn">⤴</button></div>
+    <div class="content" style="padding:0;gap:0">
+      <div style="height:150px;background:linear-gradient(135deg,var(--secondary),var(--primary));flex-shrink:0;position:relative">
+        <span class="badge badge-danger" style="position:absolute;top:10px;left:10px">-24%</span>
+      </div>
+      <div style="padding:var(--sp-4)">
+        <h4>無線降噪藍牙耳機 Pro</h4>
+        <div style="font-size:var(--fs-xs);color:var(--accent);margin-top:2px">★★★★★ <span style="color:var(--text-3)">4.8 (324)｜已售 2.1k</span></div>
+        <div class="pdp-price" style="font-size:var(--fs-xl);margin-top:4px">$1,290<span class="orig">$1,690</span></div>
+        <div class="opt-label" style="font-size:var(--fs-xs)">顏色</div>
+        <div class="swatch-dots" data-choose>
+          <div class="swatch-dot selected" style="background:#1E293B"></div>
+          <div class="swatch-dot" style="background:#F1F5F9"></div>
+          <div class="swatch-dot" style="background:#4F8EF7"></div>
+        </div>
+        <div class="opt-label" style="font-size:var(--fs-xs)">版本</div>
+        <div style="display:flex;gap:6px" data-choose>
+          <span class="chip selected" style="font-size:var(--fs-xs);padding:4px 10px">標準版</span>
+          <span class="chip" style="font-size:var(--fs-xs);padding:4px 10px">豪華版</span>
+        </div>
+        <p style="font-size:var(--fs-xs);margin-top:var(--sp-3)">主動降噪最高 -42dB，連續播放 32 小時，支援快充，IPX4 防潑水。</p>
+        <div class="pdp-meta" style="margin-top:var(--sp-2)"><span>🚚 滿 $990 免運</span><span>↩️ 7 天鑑賞期</span></div>
+      </div>
+    </div>
+    <div class="pdp-bar">
+      <button class="icon-btn">💬</button>
+      <button class="icon-btn">♡</button>
+      <button class="btn btn-outline btn-sm" style="flex:1">加入購物車</button>
+      <button class="btn btn-primary btn-sm" style="flex:1">立即購買</button>
+    </div>
+  </div>
+  <div class="phone-caption">商品詳情 Product</div>
+  </div>
+
+  <!-- 購物車 Cart -->
+  <div class="phone-demo">
+  <div class="phone">
+    <div class="statusbar"><span>9:41</span><span>📶 🔋 100%</span></div>
+    <div class="appbar"><button class="icon-btn">‹</button><span class="title">購物車 (3)</span><button class="icon-btn" style="font-size:var(--fs-xs)">管理</button></div>
+    <div class="content" style="gap:var(--sp-3)">
+      <ul class="list">
+        <li class="cart-item" style="padding:10px 12px">
+          <div class="cart-thumb" style="width:48px;height:48px;background:linear-gradient(135deg,var(--secondary),var(--primary))"></div>
+          <div class="info"><div class="name" style="font-size:var(--fs-xs)">無線降噪藍牙耳機 Pro</div><div class="spec">石墨黑</div>
+            <div class="qty qty-sm" style="margin-top:4px"><button aria-label="減少">−</button><input type="text" value="1"><button aria-label="增加">＋</button></div>
+          </div>
+          <span class="price" style="font-size:var(--fs-sm);color:var(--danger)">$1,290</span>
+        </li>
+        <li class="cart-item" style="padding:10px 12px">
+          <div class="cart-thumb" style="width:48px;height:48px;background:linear-gradient(135deg,var(--success),var(--secondary))"></div>
+          <div class="info"><div class="name" style="font-size:var(--fs-xs)">陶瓷保溫隨行杯 480ml</div><div class="spec">森林綠</div>
+            <div class="qty qty-sm" style="margin-top:4px"><button aria-label="減少">−</button><input type="text" value="2"><button aria-label="增加">＋</button></div>
+          </div>
+          <span class="price" style="font-size:var(--fs-sm);color:var(--danger)">$598</span>
+        </li>
+        <li class="cart-item" style="padding:10px 12px">
+          <div class="cart-thumb" style="width:48px;height:48px;background:linear-gradient(135deg,var(--accent),var(--danger))"></div>
+          <div class="info"><div class="name" style="font-size:var(--fs-xs)">極簡防潑水後背包</div><div class="spec">沙漠棕</div>
+            <div class="qty qty-sm" style="margin-top:4px"><button aria-label="減少">−</button><input type="text" value="1"><button aria-label="增加">＋</button></div>
+          </div>
+          <span class="price" style="font-size:var(--fs-sm);color:var(--danger)">$890</span>
+        </li>
+      </ul>
+      <div class="alert alert-info" style="padding:var(--sp-2) var(--sp-3);font-size:var(--fs-xs)">🎟️ 已套用優惠券：滿千折百</div>
+      <div style="font-size:var(--fs-xs);color:var(--text-2)">
+        <div class="order-line" style="font-size:var(--fs-xs)"><span>小計</span><span>$1,888</span></div>
+        <div class="order-line" style="font-size:var(--fs-xs)"><span>折抵</span><span style="color:var(--success)">-$100</span></div>
+      </div>
+    </div>
+    <div class="pdp-bar">
+      <label class="check-item" style="font-size:var(--fs-xs)"><input type="checkbox" checked> 全選</label>
+      <div style="flex:1;text-align:right;font-size:var(--fs-xs)">總計 <b style="color:var(--danger);font-size:var(--fs-md)">$1,788</b></div>
+      <button class="btn btn-primary btn-sm">結帳 (3)</button>
+    </div>
+  </div>
+  <div class="phone-caption">購物車 Cart</div>
+  </div>
+
   </div><!-- /.phone-grid -->
 </section>
 
@@ -2221,10 +2669,13 @@ stars.forEach((s, i) => {
 });
 document.getElementById('stars').addEventListener('mouseleave', () => paintStars(rating));
 
-// 數量加減 Stepper
-const qtyInput = document.getElementById('qtyInput');
-document.getElementById('qtyMinus').addEventListener('click', () => { qtyInput.value = Math.max(1, +qtyInput.value - 1); });
-document.getElementById('qtyPlus').addEventListener('click', () => { qtyInput.value = Math.min(99, +qtyInput.value + 1); });
+// 數量加減 Stepper（通用：頁面上所有 .qty 都適用）
+document.querySelectorAll('.qty').forEach(q => {
+  const inp = q.querySelector('input');
+  const btns = q.querySelectorAll('button');
+  btns[0].addEventListener('click', () => { inp.value = Math.max(1, +inp.value - 1); });
+  btns[1].addEventListener('click', () => { inp.value = Math.min(99, +inp.value + 1); });
+});
 
 // 標籤輸入 Tag Input
 const tagInput = document.getElementById('tagInput');
@@ -2461,6 +2912,79 @@ const cookieBanner = document.getElementById('cookieBanner');
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2500);
 }));
+
+/* ═══ 電商版面 Commerce ═══ */
+
+// Toast 共用小工具
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(showToast._timer);
+  showToast._timer = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+// 倒數計時（促銷橫幅 + 閃購卡共用）
+let cdSecs = 2 * 3600 + 34 * 60 + 56;
+setInterval(() => {
+  cdSecs = cdSecs > 0 ? cdSecs - 1 : 24 * 3600 - 1;
+  const h = String(Math.floor(cdSecs / 3600)).padStart(2, '0');
+  const m = String(Math.floor(cdSecs % 3600 / 60)).padStart(2, '0');
+  const s = String(cdSecs % 60).padStart(2, '0');
+  document.querySelectorAll('.cd-h').forEach(el => el.textContent = h);
+  document.querySelectorAll('.cd-m').forEach(el => el.textContent = m);
+  document.querySelectorAll('.cd-s').forEach(el => el.textContent = s);
+}, 1000);
+
+// 商品圖庫縮圖切換
+const pdpMain = document.getElementById('pdpMain');
+document.querySelectorAll('#pdpThumbs .thumb').forEach(thumb => {
+  thumb.addEventListener('click', () => {
+    document.querySelectorAll('#pdpThumbs .thumb').forEach(t => t.classList.remove('active'));
+    thumb.classList.add('active');
+    pdpMain.style.background = getComputedStyle(thumb).backgroundImage;
+  });
+});
+
+// 顏色/版本選擇（通用：所有 [data-choose] 群組單選）
+document.querySelectorAll('[data-choose]').forEach(group => {
+  group.addEventListener('click', e => {
+    const item = e.target.closest('.swatch-dot, .chip');
+    if (!item || !group.contains(item)) return;
+    group.querySelectorAll('.swatch-dot, .chip').forEach(x => x.classList.remove('selected'));
+    item.classList.add('selected');
+  });
+});
+// 詳情頁顏色選擇（含名稱顯示）
+const colorDots = document.getElementById('colorDots');
+colorDots.addEventListener('click', e => {
+  const dot = e.target.closest('.swatch-dot');
+  if (!dot) return;
+  colorDots.querySelectorAll('.swatch-dot').forEach(d => d.classList.remove('selected'));
+  dot.classList.add('selected');
+  document.getElementById('colorName').textContent = '— ' + dot.dataset.name;
+});
+document.getElementById('verChips').addEventListener('click', e => {
+  const chip = e.target.closest('.chip');
+  if (!chip) return;
+  document.querySelectorAll('#verChips .chip').forEach(c => c.classList.remove('selected'));
+  chip.classList.add('selected');
+});
+
+// 快速加入購物車 / 加入購物車
+document.querySelectorAll('.quick-add, #pdpAddCart').forEach(btn => {
+  btn.addEventListener('click', () => showToast('🛒 已加入購物車！'));
+});
+
+// 優惠券領取
+document.querySelectorAll('.coupon-get').forEach(btn => {
+  btn.addEventListener('click', () => {
+    btn.textContent = '✓ 已領取';
+    btn.disabled = true;
+    btn.classList.replace('btn-primary', 'btn-secondary');
+    showToast('🎟️ 優惠券已放入你的帳戶');
+  });
+});
 
 // 回到頂部 Back to Top
 const backTop = document.getElementById('backTop');
