@@ -591,6 +591,165 @@ code { font-family: var(--font-mono); font-size: 0.9em; background: var(--surfac
 .site-footer a { display: block; font-size: var(--fs-sm); color: var(--text-3); margin-bottom: var(--sp-2); }
 .site-footer .copyright { font-size: var(--fs-xs); color: var(--text-3); text-align: center; border-top: 1px solid var(--border); padding-top: var(--sp-4); }
 
+/* ═══════════════════════════════════════════════════════
+   ⑬ 動態效果 MOTION & MICRO-INTERACTIONS
+   ═══════════════════════════════════════════════════════ */
+/* 捲動進場 Scroll Reveal */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-delay-1 { transition-delay: .12s; }
+.reveal-delay-2 { transition-delay: .24s; }
+
+/* Hover 微互動 */
+.hover-lift { transition: transform var(--transition), box-shadow var(--transition); }
+.hover-lift:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.hover-glow:hover { border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-light), var(--shadow-md); }
+.hover-zoom .card-media { transition: transform .45s ease; }
+.hover-zoom:hover .card-media { transform: scale(1.08); }
+.tilt-card { transition: transform .15s ease; will-change: transform; }
+
+/* 水波紋 Ripple */
+.btn-ripple { position: relative; overflow: hidden; }
+.ripple { position: absolute; border-radius: 50%; background: rgba(255,255,255,.45); transform: scale(0); animation: rippleFx .5s ease-out forwards; pointer-events: none; }
+@keyframes rippleFx { to { transform: scale(3); opacity: 0; } }
+
+/* 按讚 Like */
+.like-btn { font-size: 26px; background: none; border: none; cursor: pointer; color: var(--text-3); transition: color var(--transition); line-height: 1; }
+.like-btn.liked { color: var(--danger); animation: likePop .35s ease; }
+@keyframes likePop { 30% { transform: scale(1.45); } 60% { transform: scale(.85); } }
+
+/* 鈴鐺搖晃 Bell Shake */
+.bell-btn { font-size: 24px; background: none; border: none; cursor: pointer; position: relative; }
+.bell-btn .badge { position: absolute; top: -6px; right: -10px; }
+.bell-btn.shaking { animation: bellShake .6s ease; transform-origin: top center; }
+@keyframes bellShake { 20% { transform: rotate(14deg); } 40% { transform: rotate(-12deg); } 60% { transform: rotate(8deg); } 80% { transform: rotate(-6deg); } }
+
+/* 即時脈動 Pulse Dot */
+.pulse-dot { position: relative; width: 10px; height: 10px; border-radius: 50%; background: var(--success); display: inline-block; flex-shrink: 0; }
+.pulse-dot::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--success); animation: pulsePing 1.4s ease-out infinite; }
+@keyframes pulsePing { to { transform: scale(2.8); opacity: 0; } }
+
+/* 圓環進度 Progress Ring */
+.ring-wrap { position: relative; width: 96px; height: 96px; }
+.ring-wrap svg { transform: rotate(-90deg); }
+.ring-wrap .bar { transition: stroke-dashoffset 1.2s ease; }
+.ring-label { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-weight: var(--fw-bold); font-size: var(--fs-lg); }
+
+/* 打字機 Typewriter */
+.typewriter { font-size: var(--fs-xl); font-weight: var(--fw-bold); min-height: 1.5em; }
+.typewriter::after { content: "|"; color: var(--primary); animation: caretBlink 1s step-end infinite; margin-left: 2px; }
+@keyframes caretBlink { 50% { opacity: 0; } }
+
+/* 跑馬燈 Marquee */
+.marquee { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+.marquee-track { display: flex; gap: var(--sp-6); width: max-content; animation: marqueeMove 16s linear infinite; }
+.marquee-track span { font-size: var(--fs-lg); font-weight: var(--fw-bold); color: var(--text-3); white-space: nowrap; }
+@keyframes marqueeMove { to { transform: translateX(-50%); } }
+
+/* ═══════════════════════════════════════════════════════
+   ⑭ 進階互動元件 ADVANCED INTERACTIVE
+   ═══════════════════════════════════════════════════════ */
+/* 輪播 Carousel */
+.carousel { position: relative; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); }
+.carousel-track { display: flex; transition: transform .45s ease; }
+.carousel-slide { min-width: 100%; height: 180px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: var(--fs-xl); font-weight: var(--fw-bold); }
+.carousel-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; border-radius: 50%; border: none; background: rgba(255,255,255,.9); color: #0F172A; cursor: pointer; font-size: 16px; box-shadow: var(--shadow-sm); transition: all var(--transition); }
+.carousel-arrow:hover { background: #fff; }
+.carousel-arrow.prev { left: 12px; } .carousel-arrow.next { right: 12px; }
+.carousel-dots { position: absolute; bottom: 12px; left: 0; right: 0; display: flex; justify-content: center; gap: 6px; }
+.carousel-dots button { width: 8px; height: 8px; border-radius: var(--radius-full); border: none; background: rgba(255,255,255,.5); cursor: pointer; transition: all var(--transition); padding: 0; }
+.carousel-dots button.active { background: #fff; width: 22px; }
+
+/* 前後對比 Compare Slider */
+.compare { position: relative; height: 180px; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); }
+.compare .layer { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: var(--fw-bold); font-size: var(--fs-lg); }
+.compare .layer .tag { position: absolute; top: 10px; padding: 2px 10px; border-radius: var(--radius-full); background: rgba(0,0,0,.35); font-size: var(--fs-xs); font-weight: var(--fw-regular); }
+.compare .before .tag { left: 10px; } .compare .after .tag { right: 10px; }
+.compare-handle { position: absolute; top: 0; bottom: 0; width: 3px; background: #fff; box-shadow: var(--shadow-md); pointer-events: none; }
+.compare-handle::after { content: "⇔"; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 32px; height: 32px; border-radius: 50%; background: #fff; color: #0F172A; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+.compare input[type="range"] { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; margin: 0; }
+
+/* 星級評分 Star Rating */
+.stars { display: inline-flex; gap: 4px; font-size: 28px; cursor: pointer; user-select: none; }
+.stars span { color: var(--border); transition: color .1s ease, transform .1s ease; }
+.stars span.on { color: var(--accent); }
+.stars span:hover { transform: scale(1.15); }
+
+/* 數量加減 Quantity Stepper */
+.qty { display: inline-flex; align-items: center; border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; background: var(--surface); }
+.qty button { width: 36px; height: 36px; border: none; background: var(--surface-2); color: var(--text); font-size: 16px; cursor: pointer; transition: background var(--transition); }
+.qty button:hover { background: var(--border); }
+.qty input { width: 52px; height: 36px; text-align: center; border: none; background: none; font: inherit; color: var(--text); }
+.qty input:focus { outline: none; }
+
+/* 標籤輸入 Tag Input */
+.tag-input { display: flex; flex-wrap: wrap; gap: 6px; padding: 8px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); cursor: text; transition: border-color var(--transition), box-shadow var(--transition); }
+.tag-input:focus-within { border-color: var(--primary); box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 20%, transparent); }
+.tag-input .chip { padding: 3px 10px; font-size: var(--fs-xs); }
+.tag-input input { border: none; outline: none; background: none; flex: 1; min-width: 90px; font: inherit; color: var(--text); }
+
+/* 自動完成 Autocomplete */
+.autocomplete { position: relative; }
+.autocomplete .menu { position: absolute; top: calc(100% + 4px); left: 0; right: 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-md); padding: var(--sp-1); display: none; z-index: 40; max-height: 200px; overflow-y: auto; }
+.autocomplete .menu.open { display: block; }
+.autocomplete .menu div { padding: var(--sp-2) var(--sp-3); font-size: var(--fs-sm); border-radius: var(--radius-sm); cursor: pointer; }
+.autocomplete .menu div:hover { background: var(--surface-2); }
+.autocomplete .menu b { color: var(--primary); }
+
+/* 密碼欄位 Password Field */
+.pw-wrap { position: relative; }
+.pw-wrap .eye { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 16px; color: var(--text-3); }
+.pw-strength { display: flex; gap: 4px; margin-top: 8px; }
+.pw-strength span { flex: 1; height: 4px; border-radius: var(--radius-full); background: var(--surface-2); transition: background var(--transition); }
+
+/* OTP 驗證碼 */
+.otp { display: flex; gap: 8px; }
+.otp input { width: 44px; height: 52px; text-align: center; font-size: 20px; font-weight: var(--fw-bold); border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); color: var(--text); transition: border-color var(--transition), box-shadow var(--transition); }
+.otp input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 20%, transparent); }
+
+/* 字數統計 */
+.char-counter { text-align: right; font-size: var(--fs-xs); color: var(--text-3); }
+.char-counter.warn { color: var(--warning); }
+.char-counter.over { color: var(--danger); }
+
+/* 拖放上傳 Dropzone */
+.dropzone { border: 2px dashed var(--border); border-radius: var(--radius-lg); padding: var(--sp-6); text-align: center; color: var(--text-2); font-size: var(--fs-sm); background: var(--surface); cursor: pointer; transition: all var(--transition); }
+.dropzone .icon { font-size: 32px; display: block; margin-bottom: var(--sp-2); }
+.dropzone.dragover { border-color: var(--primary); background: var(--primary-light); color: var(--primary); }
+
+/* 拖曳排序 Sortable */
+.sortable .list-item { cursor: grab; }
+.sortable .list-item:active { cursor: grabbing; }
+.sortable .list-item.dragging { opacity: .45; background: var(--primary-light); }
+.sortable .drag-handle { color: var(--text-3); cursor: grab; }
+
+/* Popover */
+.popover-wrap { position: relative; display: inline-block; }
+.popover { position: absolute; bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%); width: 240px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-md); padding: var(--sp-4); display: none; z-index: 60; text-align: left; }
+.popover.open { display: block; }
+.popover h5 { font-size: var(--fs-sm); margin-bottom: var(--sp-1); }
+.popover p { font-size: var(--fs-xs); }
+
+/* 時間軸 Timeline */
+.timeline { position: relative; list-style: none; padding-left: 28px; }
+.timeline::before { content: ""; position: absolute; left: 9px; top: 6px; bottom: 6px; width: 2px; background: var(--border); }
+.timeline li { position: relative; padding-bottom: var(--sp-5); }
+.timeline li:last-child { padding-bottom: 0; }
+.timeline li::before { content: ""; position: absolute; left: -25px; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--primary); box-shadow: 0 0 0 3px var(--primary-light); }
+.timeline .time { font-size: var(--fs-xs); color: var(--text-3); }
+.timeline .title { font-size: var(--fs-sm); font-weight: var(--fw-medium); }
+.timeline p { font-size: var(--fs-xs); }
+
+/* 回到頂部 Back to Top */
+.backtop { position: fixed; right: 24px; bottom: 24px; z-index: 90; opacity: 0; pointer-events: none; transform: translateY(10px); transition: all .25s ease; }
+.backtop.show { opacity: 1; pointer-events: auto; transform: none; }
+
+/* 減少動態偏好 Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  html { scroll-behavior: auto; }
+}
+
 @media (max-width: 720px) {
   .layout-sidebar { grid-template-columns: 1fr; }
   .card-horizontal { flex-direction: column; }
@@ -612,6 +771,8 @@ code { font-family: var(--font-mono); font-size: 0.9em; background: var(--surfac
     <a href="#data">資料</a>
     <a href="#feedback">回饋</a>
     <a href="#overlay">覆蓋層</a>
+    <a href="#motion">動效</a>
+    <a href="#interactive">互動</a>
     <a href="#mobile">App</a>
     <a href="#layout">版面</a>
   </nav>
@@ -1086,7 +1247,206 @@ code { font-family: var(--font-mono); font-size: 0.9em; background: var(--surfac
   </div>
 </section>
 
-<!-- ════════════════ ⑨ 手機 APP ════════════════ -->
+<!-- ════════════════ ⑨ 動態效果 MOTION ════════════════ -->
+<section class="demo-section" id="motion">
+  <h2>動態效果 Motion <span>微互動 × 動畫 × 轉場</span></h2>
+
+  <div class="demo-block">
+    <h3>捲動進場 Scroll Reveal（往下捲動觸發）</h3>
+    <div class="demo-grid">
+      <div class="card reveal"><div class="card-body"><div class="card-title">依序進場 1</div><p class="card-text">捲動到可視範圍時淡入上移。</p></div></div>
+      <div class="card reveal reveal-delay-1"><div class="card-body"><div class="card-title">依序進場 2</div><p class="card-text">延遲 0.12s，形成階梯感。</p></div></div>
+      <div class="card reveal reveal-delay-2"><div class="card-body"><div class="card-title">依序進場 3</div><p class="card-text">延遲 0.24s。</p></div></div>
+    </div>
+  </div>
+
+  <div class="demo-block">
+    <h3>Hover 微互動（滑鼠移上去）</h3>
+    <div class="demo-grid">
+      <div class="card hover-lift"><div class="card-body"><div class="card-title">浮起 Lift</div><p class="card-text">上移 + 加深陰影。</p></div></div>
+      <div class="card hover-glow"><div class="card-body"><div class="card-title">發光 Glow</div><p class="card-text">主色外框光暈。</p></div></div>
+      <div class="card hover-zoom"><div class="card-media" style="height:80px"></div><div class="card-body"><div class="card-title">圖片縮放 Zoom</div><p class="card-text">圖片放大、容器裁切。</p></div></div>
+      <div class="card tilt-card" id="tiltCard"><div class="card-body"><div class="card-title">3D 傾斜 Tilt</div><p class="card-text">跟著滑鼠位置立體傾斜。</p></div></div>
+    </div>
+  </div>
+
+  <div class="demo-block">
+    <h3>點擊回饋 Click Feedback</h3>
+    <div class="demo-row">
+      <button class="btn btn-primary btn-ripple">水波紋按鈕</button>
+      <button class="like-btn" id="likeBtn" aria-label="按讚">♡</button>
+      <button class="bell-btn" id="bellBtn" aria-label="通知">🔔<span class="badge badge-danger">3</span></button>
+      <button class="btn btn-primary" id="stateBtn">送出（三態按鈕）</button>
+      <span style="display:inline-flex;align-items:center;gap:8px;font-size:var(--fs-sm)"><span class="pulse-dot"></span> 即時連線中</span>
+    </div>
+  </div>
+
+  <div class="demo-block">
+    <h3>數字與進度動畫 Numbers（捲動觸發）</h3>
+    <div class="demo-row" style="gap:var(--sp-6)">
+      <div class="card stat-card" style="min-width:180px">
+        <div class="stat-label">累積下載</div>
+        <div class="stat-value count-up" data-target="128400">0</div>
+        <span class="stat-trend up">▲ 數字滾動 Count-up</span>
+      </div>
+      <div class="ring-wrap">
+        <svg width="96" height="96" viewBox="0 0 96 96">
+          <circle cx="48" cy="48" r="40" fill="none" stroke="var(--surface-2)" stroke-width="9"/>
+          <circle class="bar" id="ringBar" cx="48" cy="48" r="40" fill="none" stroke="var(--primary)" stroke-width="9" stroke-linecap="round" stroke-dasharray="251.33" stroke-dashoffset="251.33"/>
+        </svg>
+        <div class="ring-label" id="ringVal">0%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-block">
+    <h3>文字動效 Text Effects</h3>
+    <div class="typewriter" id="typewriter"></div>
+    <div class="marquee" style="margin-top:var(--sp-4)">
+      <div class="marquee-track">
+        <span>BRAND A</span><span>BRAND B</span><span>BRAND C</span><span>BRAND D</span><span>BRAND E</span><span>BRAND F</span>
+        <span>BRAND A</span><span>BRAND B</span><span>BRAND C</span><span>BRAND D</span><span>BRAND E</span><span>BRAND F</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ ⑩ 進階互動元件 INTERACTIVE ════════════════ -->
+<section class="demo-section" id="interactive">
+  <h2>進階互動元件 Interactive <span>輪播 × 拖曳 × 即時驗證</span></h2>
+
+  <div class="demo-block">
+    <h3>輪播 Carousel（自動播放 + 箭頭 + 圓點）</h3>
+    <div class="carousel" style="max-width:560px" id="carousel">
+      <div class="carousel-track" id="carouselTrack">
+        <div class="carousel-slide" style="background:linear-gradient(135deg,var(--primary),var(--secondary))">Slide 1</div>
+        <div class="carousel-slide" style="background:linear-gradient(135deg,var(--secondary),var(--accent))">Slide 2</div>
+        <div class="carousel-slide" style="background:linear-gradient(135deg,var(--accent),var(--danger))">Slide 3</div>
+      </div>
+      <button class="carousel-arrow prev" id="carouselPrev" aria-label="上一張">‹</button>
+      <button class="carousel-arrow next" id="carouselNext" aria-label="下一張">›</button>
+      <div class="carousel-dots" id="carouselDots"></div>
+    </div>
+  </div>
+
+  <div class="demo-block">
+    <h3>前後對比 Before / After（左右拖動）</h3>
+    <div class="compare" style="max-width:560px">
+      <div class="layer before" style="background:linear-gradient(135deg,#64748B,#334155)">修改前<span class="tag">Before</span></div>
+      <div class="layer after" id="compareAfter" style="background:linear-gradient(135deg,var(--primary),var(--secondary))">修改後<span class="tag">After</span></div>
+      <div class="compare-handle" id="compareHandle" style="left:50%"></div>
+      <input type="range" min="0" max="100" value="50" id="compareRange" aria-label="前後比較滑桿">
+    </div>
+  </div>
+
+  <div class="demo-block">
+    <h3>評分與數量 Rating ＆ Stepper</h3>
+    <div class="demo-row" style="gap:var(--sp-6)">
+      <div>
+        <div class="stars" id="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <div class="form-hint" id="starsHint">點擊星星評分</div>
+      </div>
+      <div class="qty">
+        <button id="qtyMinus" aria-label="減少">−</button>
+        <input type="text" id="qtyInput" value="1" inputmode="numeric">
+        <button id="qtyPlus" aria-label="增加">＋</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-block">
+    <h3>標籤輸入 ＆ 自動完成</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--sp-4);max-width:640px">
+      <div>
+        <label class="form-label" style="display:block;margin-bottom:var(--sp-2)">標籤輸入（Enter 新增）</label>
+        <div class="tag-input" id="tagInput">
+          <span class="chip selected">設計 <span class="close">✕</span></span>
+          <span class="chip selected">前端 <span class="close">✕</span></span>
+          <input type="text" placeholder="輸入後按 Enter…">
+        </div>
+      </div>
+      <div>
+        <label class="form-label" style="display:block;margin-bottom:var(--sp-2)">自動完成（輸入城市）</label>
+        <div class="autocomplete" id="autocomplete">
+          <input class="input" type="text" placeholder="例如：台…" autocomplete="off">
+          <div class="menu"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-block">
+    <h3>密碼強度 ＆ OTP 驗證碼</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--sp-4);max-width:640px">
+      <div>
+        <label class="form-label" style="display:block;margin-bottom:var(--sp-2)">密碼（即時強度檢查）</label>
+        <div class="pw-wrap">
+          <input class="input" type="password" id="pwInput" placeholder="輸入密碼試試" style="padding-right:38px">
+          <button class="eye" id="pwEye" aria-label="顯示密碼">👁</button>
+        </div>
+        <div class="pw-strength" id="pwStrength"><span></span><span></span><span></span><span></span></div>
+        <div class="form-hint" id="pwHint">8 字以上，混用大小寫、數字、符號</div>
+      </div>
+      <div>
+        <label class="form-label" style="display:block;margin-bottom:var(--sp-2)">驗證碼（自動跳格）</label>
+        <div class="otp" id="otp">
+          <input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-block">
+    <h3>字數統計 ＆ 複製剪貼簿</h3>
+    <div style="max-width:480px">
+      <textarea class="textarea" id="charInput" maxlength="100" placeholder="限 100 字，輸入看看…"></textarea>
+      <div class="char-counter" id="charCounter">0 / 100</div>
+      <div class="input-group" style="margin-top:var(--sp-3)">
+        <input class="input" id="copyInput" value="https://example.com/share/abc123" readonly>
+        <button class="btn btn-primary" id="copyBtn">📋 複製</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-block">
+    <h3>拖放上傳 Dropzone</h3>
+    <div class="dropzone" id="dropzone" style="max-width:480px">
+      <span class="icon">📁</span>
+      <b>拖曳檔案到這裡</b>，或點擊選擇檔案
+      <div class="progress" id="uploadProgress" style="margin-top:var(--sp-3);display:none"><div class="progress-bar" id="uploadBar" style="width:0%"></div></div>
+    </div>
+    <input type="file" id="fileInput" hidden>
+  </div>
+
+  <div class="demo-block">
+    <h3>拖曳排序 Drag to Sort（按住拖動）</h3>
+    <ul class="list sortable" id="sortList" style="max-width:420px">
+      <li class="list-item" draggable="true"><span class="drag-handle">⠿</span><div class="grow"><div class="title">待辦事項 A</div></div><span class="badge badge-primary">P1</span></li>
+      <li class="list-item" draggable="true"><span class="drag-handle">⠿</span><div class="grow"><div class="title">待辦事項 B</div></div><span class="badge badge-neutral">P2</span></li>
+      <li class="list-item" draggable="true"><span class="drag-handle">⠿</span><div class="grow"><div class="title">待辦事項 C</div></div><span class="badge badge-neutral">P3</span></li>
+    </ul>
+  </div>
+
+  <div class="demo-block">
+    <h3>Popover ＆ 時間軸 Timeline</h3>
+    <div class="demo-row" style="align-items:flex-start;gap:var(--sp-6)">
+      <div class="popover-wrap">
+        <button class="btn btn-secondary" id="popoverBtn">點我看 Popover</button>
+        <div class="popover" id="popover">
+          <h5>📌 Popover 標題</h5>
+          <p>比 Tooltip 更豐富的浮動說明框，可以放標題、內文與操作。</p>
+        </div>
+      </div>
+      <ul class="timeline" style="flex:1;min-width:240px;max-width:400px">
+        <li><div class="time">2026/07/01 09:30</div><div class="title">訂單成立</div><p>系統已收到你的訂單。</p></li>
+        <li><div class="time">2026/07/02 14:10</div><div class="title">已出貨</div><p>包裹交由物流配送中。</p></li>
+        <li><div class="time">2026/07/03 11:45</div><div class="title">配送完成</div><p>已送達指定門市。</p></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ ⑪ 手機 APP ════════════════ -->
 <section class="demo-section" id="mobile">
   <h2>手機 App 元件 <span>App Bar × 底部導覽 × FAB × Bottom Sheet</span></h2>
   <div class="phone">
@@ -1196,6 +1556,9 @@ code { font-family: var(--font-mono); font-size: 0.9em; background: var(--surfac
 <!-- Toast -->
 <div class="toast" id="toast">✅ 操作成功！這是一則 Toast 通知</div>
 
+<!-- 回到頂部 -->
+<button class="fab backtop" id="backTop" aria-label="回到頂部">↑</button>
+
 <!-- Modal -->
 <div class="modal-backdrop" id="modalBackdrop">
   <div class="modal">
@@ -1262,6 +1625,320 @@ document.addEventListener('click', () => dd.classList.remove('open'));
 document.getElementById('sheetBtn').addEventListener('click', () => {
   document.getElementById('bottomSheet').classList.add('open');
 });
+
+/* ═══ 動態效果 Motion ═══ */
+
+// 捲動進場 Scroll Reveal
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => e.target.classList.toggle('visible', e.isIntersecting));
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// 3D 傾斜 Tilt
+const tiltCard = document.getElementById('tiltCard');
+tiltCard.addEventListener('mousemove', e => {
+  const r = tiltCard.getBoundingClientRect();
+  const x = (e.clientX - r.left) / r.width - 0.5;
+  const y = (e.clientY - r.top) / r.height - 0.5;
+  tiltCard.style.transform = `perspective(600px) rotateY(${x * 12}deg) rotateX(${-y * 12}deg)`;
+});
+tiltCard.addEventListener('mouseleave', () => { tiltCard.style.transform = ''; });
+
+// 水波紋 Ripple
+document.querySelectorAll('.btn-ripple').forEach(btn => {
+  btn.addEventListener('click', e => {
+    const r = btn.getBoundingClientRect();
+    const size = Math.max(r.width, r.height);
+    const s = document.createElement('span');
+    s.className = 'ripple';
+    s.style.width = s.style.height = size + 'px';
+    s.style.left = (e.clientX - r.left - size / 2) + 'px';
+    s.style.top = (e.clientY - r.top - size / 2) + 'px';
+    btn.appendChild(s);
+    setTimeout(() => s.remove(), 500);
+  });
+});
+
+// 按讚 Like
+const likeBtn = document.getElementById('likeBtn');
+likeBtn.addEventListener('click', () => {
+  const liked = likeBtn.classList.toggle('liked');
+  likeBtn.textContent = liked ? '❤' : '♡';
+});
+
+// 鈴鐺搖晃 Bell
+const bellBtn = document.getElementById('bellBtn');
+bellBtn.addEventListener('click', () => {
+  bellBtn.classList.remove('shaking');
+  void bellBtn.offsetWidth; // 重啟動畫
+  bellBtn.classList.add('shaking');
+});
+
+// 三態按鈕：一般 → 載入中 → 完成
+const stateBtn = document.getElementById('stateBtn');
+stateBtn.addEventListener('click', () => {
+  if (stateBtn.disabled) return;
+  stateBtn.disabled = true;
+  stateBtn.innerHTML = '<span class="spinner" style="width:14px;height:14px;border-width:2px;border-top-color:#fff"></span> 處理中…';
+  setTimeout(() => {
+    stateBtn.innerHTML = '✓ 完成';
+    stateBtn.classList.add('btn-success');
+    setTimeout(() => {
+      stateBtn.disabled = false;
+      stateBtn.classList.remove('btn-success');
+      stateBtn.textContent = '送出（三態按鈕）';
+    }, 1400);
+  }, 1500);
+});
+
+// 數字滾動 Count-up ＆ 圓環進度（捲動觸發）
+const numberObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    numberObserver.unobserve(entry.target);
+    if (entry.target.classList.contains('count-up')) {
+      const target = +entry.target.dataset.target;
+      const start = performance.now();
+      const tick = now => {
+        const p = Math.min((now - start) / 1200, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        entry.target.textContent = Math.round(target * eased).toLocaleString();
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    } else {
+      const pct = 72, circumference = 251.33;
+      document.getElementById('ringBar').style.strokeDashoffset = circumference * (1 - pct / 100);
+      const start = performance.now();
+      const tick = now => {
+        const p = Math.min((now - start) / 1200, 1);
+        document.getElementById('ringVal').textContent = Math.round(pct * p) + '%';
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }
+  });
+}, { threshold: 0.4 });
+document.querySelectorAll('.count-up, .ring-wrap').forEach(el => numberObserver.observe(el));
+
+// 打字機 Typewriter
+const phrases = ['打造一致的設計風格。', '所有元件共用 Design Tokens。', '改一處，全站生效。'];
+const twEl = document.getElementById('typewriter');
+let twPhrase = 0, twChar = 0, twDeleting = false;
+(function typeLoop() {
+  const text = phrases[twPhrase];
+  twChar += twDeleting ? -1 : 1;
+  twEl.textContent = text.slice(0, twChar);
+  let delay = twDeleting ? 45 : 110;
+  if (!twDeleting && twChar === text.length) { delay = 1800; twDeleting = true; }
+  else if (twDeleting && twChar === 0) { twDeleting = false; twPhrase = (twPhrase + 1) % phrases.length; delay = 400; }
+  setTimeout(typeLoop, delay);
+})();
+
+/* ═══ 進階互動元件 Interactive ═══ */
+
+// 輪播 Carousel
+const carouselTrack = document.getElementById('carouselTrack');
+const slideCount = carouselTrack.children.length;
+const dotsWrap = document.getElementById('carouselDots');
+let slideIndex = 0, autoplay;
+for (let i = 0; i < slideCount; i++) {
+  const dot = document.createElement('button');
+  dot.setAttribute('aria-label', `第 ${i + 1} 張`);
+  dot.addEventListener('click', () => { goSlide(i); resetAutoplay(); });
+  dotsWrap.appendChild(dot);
+}
+function goSlide(i) {
+  slideIndex = (i + slideCount) % slideCount;
+  carouselTrack.style.transform = `translateX(-${slideIndex * 100}%)`;
+  [...dotsWrap.children].forEach((d, n) => d.classList.toggle('active', n === slideIndex));
+}
+function resetAutoplay() {
+  clearInterval(autoplay);
+  autoplay = setInterval(() => goSlide(slideIndex + 1), 3500);
+}
+document.getElementById('carouselPrev').addEventListener('click', () => { goSlide(slideIndex - 1); resetAutoplay(); });
+document.getElementById('carouselNext').addEventListener('click', () => { goSlide(slideIndex + 1); resetAutoplay(); });
+goSlide(0); resetAutoplay();
+
+// 前後對比 Compare
+document.getElementById('compareRange').addEventListener('input', e => {
+  const v = e.target.value;
+  document.getElementById('compareAfter').style.clipPath = `inset(0 ${100 - v}% 0 0)`;
+  document.getElementById('compareHandle').style.left = v + '%';
+});
+document.getElementById('compareAfter').style.clipPath = 'inset(0 50% 0 0)';
+
+// 星級評分 Stars
+const stars = [...document.querySelectorAll('#stars span')];
+const starsHint = document.getElementById('starsHint');
+let rating = 0;
+const starLabels = ['很差', '普通', '不錯', '很好', '超讚'];
+function paintStars(n) { stars.forEach((s, i) => s.classList.toggle('on', i < n)); }
+stars.forEach((s, i) => {
+  s.addEventListener('mouseenter', () => paintStars(i + 1));
+  s.addEventListener('click', () => { rating = i + 1; starsHint.textContent = `${rating} 星 — ${starLabels[i]}`; });
+});
+document.getElementById('stars').addEventListener('mouseleave', () => paintStars(rating));
+
+// 數量加減 Stepper
+const qtyInput = document.getElementById('qtyInput');
+document.getElementById('qtyMinus').addEventListener('click', () => { qtyInput.value = Math.max(1, +qtyInput.value - 1); });
+document.getElementById('qtyPlus').addEventListener('click', () => { qtyInput.value = Math.min(99, +qtyInput.value + 1); });
+
+// 標籤輸入 Tag Input
+const tagInput = document.getElementById('tagInput');
+const tagField = tagInput.querySelector('input');
+tagInput.addEventListener('click', e => {
+  if (e.target.classList.contains('close')) e.target.closest('.chip').remove();
+  else tagField.focus();
+});
+tagField.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && tagField.value.trim()) {
+    e.preventDefault();
+    const chip = document.createElement('span');
+    chip.className = 'chip selected';
+    chip.innerHTML = `${tagField.value.trim()} <span class="close">✕</span>`;
+    tagInput.insertBefore(chip, tagField);
+    tagField.value = '';
+  }
+  if (e.key === 'Backspace' && !tagField.value) {
+    const chips = tagInput.querySelectorAll('.chip');
+    if (chips.length) chips[chips.length - 1].remove();
+  }
+});
+
+// 自動完成 Autocomplete
+const cities = ['台北市', '新北市', '桃園市', '台中市', '台南市', '高雄市', '基隆市', '新竹市', '嘉義市', '宜蘭縣', '花蓮縣', '台東縣'];
+const acWrap = document.getElementById('autocomplete');
+const acInput = acWrap.querySelector('input');
+const acMenu = acWrap.querySelector('.menu');
+acInput.addEventListener('input', () => {
+  const q = acInput.value.trim();
+  if (!q) { acMenu.classList.remove('open'); return; }
+  const hits = cities.filter(c => c.includes(q));
+  acMenu.innerHTML = hits.length
+    ? hits.map(c => `<div>${c.replace(q, `<b>${q}</b>`)}</div>`).join('')
+    : '<div style="color:var(--text-3)">找不到符合的城市</div>';
+  acMenu.classList.add('open');
+});
+acMenu.addEventListener('mousedown', e => {
+  const item = e.target.closest('div');
+  if (item && !item.querySelector('div')) { acInput.value = item.textContent; acMenu.classList.remove('open'); }
+});
+acInput.addEventListener('blur', () => setTimeout(() => acMenu.classList.remove('open'), 120));
+
+// 密碼強度 ＆ 顯示切換
+const pwInput = document.getElementById('pwInput');
+const pwBars = document.querySelectorAll('#pwStrength span');
+const pwHint = document.getElementById('pwHint');
+document.getElementById('pwEye').addEventListener('click', () => {
+  pwInput.type = pwInput.type === 'password' ? 'text' : 'password';
+});
+pwInput.addEventListener('input', () => {
+  const v = pwInput.value;
+  let score = 0;
+  if (v.length >= 8) score++;
+  if (/[A-Z]/.test(v) && /[a-z]/.test(v)) score++;
+  if (/\d/.test(v)) score++;
+  if (/[^A-Za-z0-9]/.test(v)) score++;
+  const colors = ['var(--danger)', 'var(--warning)', 'var(--accent)', 'var(--success)'];
+  const labels = ['太弱', '偏弱', '中等', '很強'];
+  pwBars.forEach((b, i) => { b.style.background = i < score ? colors[score - 1] : ''; });
+  pwHint.textContent = v ? `強度：${labels[score - 1] || '太弱'}` : '8 字以上，混用大小寫、數字、符號';
+});
+
+// OTP 自動跳格
+const otpInputs = [...document.querySelectorAll('#otp input')];
+otpInputs.forEach((inp, i) => {
+  inp.addEventListener('input', () => {
+    inp.value = inp.value.replace(/\D/g, '');
+    if (inp.value && i < otpInputs.length - 1) otpInputs[i + 1].focus();
+  });
+  inp.addEventListener('keydown', e => {
+    if (e.key === 'Backspace' && !inp.value && i > 0) otpInputs[i - 1].focus();
+  });
+});
+
+// 字數統計
+const charInput = document.getElementById('charInput');
+const charCounter = document.getElementById('charCounter');
+charInput.addEventListener('input', () => {
+  const len = charInput.value.length;
+  charCounter.textContent = `${len} / 100`;
+  charCounter.classList.toggle('warn', len >= 80 && len < 100);
+  charCounter.classList.toggle('over', len >= 100);
+});
+
+// 複製剪貼簿
+const copyBtn = document.getElementById('copyBtn');
+copyBtn.addEventListener('click', async () => {
+  const text = document.getElementById('copyInput').value;
+  try { await navigator.clipboard.writeText(text); }
+  catch {
+    const ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); ta.remove();
+  }
+  copyBtn.textContent = '✓ 已複製';
+  setTimeout(() => { copyBtn.textContent = '📋 複製'; }, 1500);
+});
+
+// 拖放上傳 Dropzone（模擬上傳進度）
+const dropzone = document.getElementById('dropzone');
+const fileInput = document.getElementById('fileInput');
+function simulateUpload() {
+  const progress = document.getElementById('uploadProgress');
+  const bar = document.getElementById('uploadBar');
+  progress.style.display = 'block';
+  let pct = 0;
+  const timer = setInterval(() => {
+    pct = Math.min(100, pct + Math.random() * 18);
+    bar.style.width = pct + '%';
+    if (pct >= 100) {
+      clearInterval(timer);
+      bar.classList.add('success');
+      dropzone.querySelector('b').textContent = '✓ 上傳完成！';
+    }
+  }, 180);
+}
+dropzone.addEventListener('click', () => fileInput.click());
+fileInput.addEventListener('change', simulateUpload);
+['dragover', 'dragleave', 'drop'].forEach(ev => dropzone.addEventListener(ev, e => {
+  e.preventDefault();
+  dropzone.classList.toggle('dragover', ev === 'dragover');
+  if (ev === 'drop') simulateUpload();
+}));
+
+// 拖曳排序 Sortable
+const sortList = document.getElementById('sortList');
+sortList.querySelectorAll('.list-item').forEach(item => {
+  item.addEventListener('dragstart', () => item.classList.add('dragging'));
+  item.addEventListener('dragend', () => item.classList.remove('dragging'));
+});
+sortList.addEventListener('dragover', e => {
+  e.preventDefault();
+  const dragging = sortList.querySelector('.dragging');
+  if (!dragging) return;
+  const others = [...sortList.querySelectorAll('.list-item:not(.dragging)')];
+  const next = others.find(el => e.clientY <= el.getBoundingClientRect().top + el.offsetHeight / 2);
+  sortList.insertBefore(dragging, next || null);
+});
+
+// Popover
+const popover = document.getElementById('popover');
+document.getElementById('popoverBtn').addEventListener('click', e => {
+  e.stopPropagation();
+  popover.classList.toggle('open');
+});
+document.addEventListener('click', () => popover.classList.remove('open'));
+
+// 回到頂部 Back to Top
+const backTop = document.getElementById('backTop');
+window.addEventListener('scroll', () => {
+  backTop.classList.toggle('show', window.scrollY > 400);
+}, { passive: true });
+backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 </script>
 </body>
 </html>
