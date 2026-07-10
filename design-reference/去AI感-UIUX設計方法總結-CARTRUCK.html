@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>「去 AI 感」UI/UX 設計方法總結 — CARTRUCK 營運中心改版</title>
+<style>
+  :root{
+    --paper:#f6f4ef; --surface:#fbfaf7; --ink:#22201c; --graphite:#4a443b; --muted:#8a8175;
+    --line:#e4dfd4; --line-2:#d3ccbe; --accent:#b3500f; --accent-soft:#f4e7d9;
+    --ok:#4e7a37; --crit:#a63627;
+    --sans:-apple-system,"Segoe UI","PingFang TC","Microsoft JhengHei","Noto Sans TC",sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#17140f; --surface:#201c16; --ink:#f0ebe1; --graphite:#c8bfb0; --muted:#8d8474;
+      --line:#332d24; --line-2:#40382d; --accent:#e07d33; --accent-soft:#322110; --ok:#84ab63; --crit:#d5624f; }
+  }
+  *{ box-sizing:border-box; }
+  html{ -webkit-text-size-adjust:100%; }
+  body{ margin:0; background:var(--paper); color:var(--graphite); font-family:var(--sans);
+    line-height:1.72; font-size:16px; -webkit-font-smoothing:antialiased; }
+  .wrap{ max-width:760px; margin:0 auto; padding:56px 24px 80px; }
+  code,.mono{ font-family:var(--mono); font-variant-numeric:tabular-nums; }
+  a{ color:var(--accent); text-decoration:none; border-bottom:1px solid var(--accent-soft); }
+  a:hover{ border-bottom-color:var(--accent); }
+
+  header.doc{ border-bottom:2px solid var(--accent); padding-bottom:22px; margin-bottom:8px; }
+  .eyebrow{ font-family:var(--mono); font-size:12px; letter-spacing:.16em; color:var(--accent);
+    text-transform:uppercase; display:flex; align-items:center; gap:8px; margin-bottom:14px; }
+  .eyebrow::before{ content:""; width:22px; height:2px; background:var(--accent); }
+  h1{ font-size:29px; line-height:1.25; color:var(--ink); margin:0 0 10px; letter-spacing:.01em; text-wrap:balance; }
+  .lede{ color:var(--muted); font-size:15px; margin:0; }
+  .lede a{ font-family:var(--mono); font-size:13.5px; }
+
+  h2{ font-size:20px; color:var(--ink); margin:46px 0 14px; display:flex; align-items:center; gap:11px; letter-spacing:.01em; }
+  h2::before{ content:""; width:4px; height:20px; background:var(--accent); border-radius:1px; flex:0 0 auto; }
+  h3{ font-size:16px; color:var(--ink); margin:26px 0 6px; }
+  p{ margin:12px 0; }
+  strong{ color:var(--ink); font-weight:650; }
+  .num{ font-family:var(--mono); color:var(--accent); font-weight:700; margin-right:2px; }
+
+  ul{ margin:12px 0; padding-left:22px; }
+  li{ margin:7px 0; }
+
+  .callout{ background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--accent);
+    border-radius:5px; padding:14px 18px; margin:20px 0; color:var(--graphite); }
+  .callout strong{ color:var(--ink); }
+
+  .steps{ list-style:none; padding:0; margin:16px 0; counter-reset:s; }
+  .steps > li{ position:relative; padding:14px 16px 14px 52px; background:var(--surface);
+    border:1px solid var(--line); border-radius:5px; margin:9px 0; counter-increment:s; }
+  .steps > li::before{ content:counter(s,decimal-leading-zero); position:absolute; left:16px; top:14px;
+    font-family:var(--mono); font-size:13px; font-weight:700; color:var(--accent); }
+  .steps b{ color:var(--ink); }
+
+  .tbl-wrap{ overflow-x:auto; margin:18px 0; }
+  table{ width:100%; border-collapse:collapse; border:1px solid var(--line); border-radius:5px; overflow:hidden; font-size:14.5px; }
+  th,td{ text-align:left; padding:11px 14px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th{ background:var(--surface); color:var(--muted); font-size:12px; letter-spacing:.05em; font-weight:700; }
+  tr:last-child td{ border-bottom:0; }
+  td:first-child{ color:var(--muted); }
+  td:last-child{ color:var(--ink); }
+
+  .cols{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:18px 0; }
+  @media (max-width:600px){ .cols{ grid-template-columns:1fr; } }
+  .card{ background:var(--surface); border:1px solid var(--line); border-radius:5px; padding:14px 16px; }
+  .card h4{ margin:0 0 8px; font-size:13px; letter-spacing:.05em; font-family:var(--mono); }
+  .card.avoid h4{ color:var(--crit); }
+  .card.adopt h4{ color:var(--ok); }
+  .card ul{ margin:0; padding-left:18px; }
+  .card li{ font-size:14px; margin:6px 0; }
+
+  footer.doc{ margin-top:52px; padding-top:20px; border-top:1px solid var(--line-2); font-size:14px; color:var(--muted); }
+  footer.doc code{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="doc">
+    <div class="eyebrow">設計交接 · 方法總結</div>
+    <h1>「去 AI 感」UI/UX 設計方法總結</h1>
+    <p class="lede">CARTRUCK 營運中心改版實戰整理（2026-07）。現成範例（工作台儀表設計語言）：<br>
+    <a href="https://claude.ai/code/artifact/b1841183-362a-4bc9-8253-3d7c38743247">claude.ai/code/artifact/b1841183…</a></p>
+  </header>
+
+  <p>用途：把這次商城營運中心改版用來「擺脫 AI 生成感」的做法，整理成<strong>可重複套用的原則 + 審查檢查清單</strong>，供 UI/UX 負責人納入日常設計與審查。</p>
+
+  <h2>一、先認得「AI 感」長什麼樣</h2>
+  <p>AI 生成的介面現在很容易撞同一批長相。看到下面這些，就要警覺自己是不是掉進預設：</p>
+  <ul>
+    <li>紫藍漸層 hero；warm cream（<code>#F4F1EA</code>）+ 襯線大標 + 磚紅點綴</li>
+    <li>近黑底 + 單一螢光綠／朱紅點綴；報紙式細線多欄</li>
+    <li><strong>Inter / Space Grotesk 當「安全字體」</strong>、字級沒有節奏</li>
+    <li><strong>emoji 當區塊標記／icon</strong>（最明顯的一個 tell）</li>
+    <li>全部<strong>置中對齊</strong>、<code>rounded-lg</code> <strong>到處都是</strong>、卡片一律「左側彩條 + 柔和浮空陰影」</li>
+    <li>glassmorphism（毛玻璃）濫用</li>
+  </ul>
+  <div class="callout"><strong>核心觀念：這些不是「錯」，是「預設」。</strong> 沒有明確方向時，不要把設計力氣花在這批人人都撞的長相上。有觀點的選擇，才會脫離 AI 感。</div>
+
+  <h2>二、對治方法（九條，可重複套用）</h2>
+  <ol class="steps">
+    <li><b>先釘住主題（subject-grounded）。</b>設計語言要從產品自身的世界長出來，而不是套通用模板。本案是卡車／汽車電系零件的營運後台，使用者整天在派工、出貨、對帳——所以定位成「工作台儀表／派工控制台」，不是 SaaS 落地頁。先問：這產品的材料、場域、行話是什麼？</li>
+    <li><b>殺掉「emoji 當 icon」。</b>這是最強的 AI tell。狀態改用<strong>形狀</strong>編碼：待辦用嚴重度左側色條（行動＝重點色／注意＝琥珀／急件＝紅）、狀態用小圓點 chip、分類用文字標籤。只保留功能性符號（關閉／編輯／列印／勾選）與資料型圖示。</li>
+    <li><b>Token 化 ＋ 只選「一個」有觀點的重點色。</b>全站色彩走 CSS 變數。重點色只選一個、而且要有觀點——本案用氧化橘（<code>#c0531a</code>）呼應卡車／派工調性，不是隨手的品牌藍或 AI 紫。語意色（綠／琥珀／紅）與重點色分開。整站換色只動一個變數。</li>
+    <li><b>中性色要「選過」，不是預設灰。</b>不要 Tailwind 冷灰一路到底。用暖石墨（中性色帶一點點主色偏向）——純中灰讀起來像「沒選過」，帶微偏的灰讀起來像「刻意挑的」。</li>
+    <li><b>字體要有觀點；把「數字」當一等公民。</b>中文用系統字（塞 CJK 網路字型不切實際）。個性從<strong>數字全用等寬 + <code>tabular-nums</code></strong> 來——金額／單號／SKU／庫存全部對齊＝帳冊／儀表般的專業感。對數據密集的工具尤其有效。標籤加一點字距。</li>
+    <li><b>髮絲線取代浮空陰影；圓角收斂。</b>平面卡片 + 1px 髮絲線，比到處柔和陰影更俐落、更「工具」。圓角收斂到小值（近直角），拒絕 <code>rounded-lg</code> 無差別套用。</li>
+    <li><b>分頁用「標牌式底線」，不要膠囊 pill。</b>作用態用底線標牌（active 底部一條重點色），而不是圓角膠囊背景。pill 是 AI 常見長相；標牌線更像儀器面板。</li>
+    <li><b>密度＝工具感。</b>營運工具是「用來操作」的，不是「用來閱讀」的落地頁。要資訊密、摘要優先，不要大留白。落地頁的空曠感套到後台，就會顯得空又假。</li>
+    <li><b>平面，不要漸層。</b>功能性 UI 上的漸層（外殼、按鈕、圖表長條）幾乎都是 AI tell。一律單色；需要層次用邊框、底色深淺、間距處理。</li>
+  </ol>
+  <div class="callout">補充（資訊設計）：UI 是被「掃描與操作」的，不是從上讀到下。<strong>摘要先於明細</strong>；狀態用 chip／severity stripe 讓「需要注意的」一眼可辨；圖表也要用心——area fill + 淡格線 + 強調端點，別給預設長條。</div>
+
+  <h2>三、Before → After（本案例對照）</h2>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>原本（AI 味來源）</th><th>改版後（去 AI 感）</th></tr></thead>
+    <tbody>
+      <tr><td>每個區塊／待辦用 emoji 當 icon</td><td>移除；改分類標籤 + 左側嚴重度色條，狀態用「形狀」</td></tr>
+      <tr><td>深灰漸層外殼 + 圓角膠囊導覽</td><td>平面暖墨色控制台 + 標牌式底線分頁；圖表漸層也拿掉</td></tr>
+      <tr><td>一路 Tailwind 冷灰、沒有重點色</td><td>暖石墨中性色 + 一個氧化橘重點色；語意色另分</td></tr>
+      <tr><td>到處 <code>rounded-lg</code> + 浮空陰影</td><td>近直角 + 髮絲線分隔，密度拉高像真正在用的工具</td></tr>
+      <tr><td>沒有字體個性</td><td>所有數字等寬對齊（帳冊感）＝個性來源</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>四、設計審查快速檢查清單</h2>
+  <div class="cols">
+    <div class="card avoid">
+      <h4>避免 · AVOID</h4>
+      <ul>
+        <li>emoji 當標題前綴／功能 icon</li>
+        <li>紫藍（或任何）漸層當裝飾；毛玻璃</li>
+        <li>一份設計裡兩三種以上重點色互搶</li>
+        <li><code>rounded-lg</code>／大圓角無差別套用；每卡都浮空陰影</li>
+        <li>全置中；字級沒階層；Inter 當唯一字體</li>
+        <li>落地頁式大留白套到密集工具</li>
+      </ul>
+    </div>
+    <div class="card adopt">
+      <h4>採用 · ADOPT</h4>
+      <ul>
+        <li>一個「有觀點且扣主題」的重點色，其餘克制</li>
+        <li>中性色選過（帶主色微偏）</li>
+        <li>狀態用形狀編碼（chip／severity stripe／dot）</li>
+        <li>數字等寬 + <code>tabular-nums</code>；標籤加字距</li>
+        <li>髮絲線 &gt; 陰影；圓角收斂；分頁用底線標牌</li>
+        <li>摘要先於明細；圖表 area fill + 淡格線 + 強調端點</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>五、本專案落地參考</h2>
+  <ul>
+    <li>設計系統 = CSS 變數 <code>--ct-*</code>，定義在 <code>wp-content/mu-plugins/cartruck-ops.php</code> 的 <code>admin_head &lt;style&gt;</code>（<code>:root{ --ct-paper … }</code>）。</li>
+    <li><strong>唯一重點色 = <code>--ct-accent:#c0531a</code></strong>，改這一個變數全營運中心跟著換色。淺色 only（活在淺色 wp-admin 內）。</li>
+    <li>外殼（頂端控制台）<strong>單一來源</strong>在 <code>cartruck-ops.php</code>；別在別檔重複拷貝 CSS。</li>
+    <li>詳細規則見專案 <code>CLAUDE.md</code> §三「營運中心設計系統」。</li>
+  </ul>
+
+  <footer class="doc">
+    這份文件本身即依上述方法排版：暖石墨中性色、單一氧化橘重點色、無 emoji、數字等寬、髮絲線分隔、標題用重點色刻度——可當作「去 AI 感」的活範例。
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-Hant">
+<html lang="zh-Hant" data-style="warm-graphite" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,37 +20,24 @@
 <style>
 /* ═══════════════════════════════════════════════════════
    ① DESIGN TOKENS — 改風格只要改這裡
+   ─────────────────────────────────────────────────────
+   結構：
+     :root                          → 全風格共用（字體階層、間距、動畫）
+     :root[data-style="x"]          → 某風格的淺色 token
+     :root[data-style="x"][data-theme="dark"] → 該風格的深色覆寫
+
+   風格與明暗是「兩個正交維度」：深色不是一種風格，
+   是每種風格底下的一個模式。新增風格請照樣補齊兩個區塊。
+
+   頂端分頁可即時調整數值並匯出，但匯出的結果要貼回這裡才會永久保存。
    ═══════════════════════════════════════════════════════ */
+
 :root {
-  /* ---- 品牌色 Brand Colors ---- */
-  --primary:        #4F46E5;   /* 主色（按鈕、連結、重點） */
-  --primary-hover:  #4338CA;   /* 主色 hover */
-  --primary-light:  #EEF2FF;   /* 主色淺背景 */
-  --secondary:      #0EA5E9;   /* 次要色 */
-  --accent:         #F59E0B;   /* 強調色 */
-
-  /* ---- 語意色 Semantic Colors ---- */
-  --success:        #16A34A;
-  --success-bg:     #F0FDF4;
-  --warning:        #D97706;
-  --warning-bg:     #FFFBEB;
-  --danger:         #DC2626;
-  --danger-bg:      #FEF2F2;
-  --info:           #0284C7;
-  --info-bg:        #F0F9FF;
-
-  /* ---- 中性色 Neutral Colors ---- */
-  --bg:             #F8FAFC;   /* 頁面背景 */
-  --surface:        #FFFFFF;   /* 卡片/元件表面 */
-  --surface-2:      #F1F5F9;   /* 次層表面（hover、分隔區） */
-  --border:         #E2E8F0;   /* 邊框 */
-  --text:           #0F172A;   /* 主要文字 */
-  --text-2:         #475569;   /* 次要文字 */
-  --text-3:         #94A3B8;   /* 弱化文字/placeholder */
-
-  /* ---- 字體 Typography ---- */
+  /* ---- 字體 Typography（共用） ---- */
   --font-family:    "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, -apple-system, sans-serif;
-  --font-mono:      "JetBrains Mono", Consolas, monospace;
+  /* 數字是一等公民：金額／單號／SKU／庫存一律
+     font-family: var(--font-mono); font-variant-numeric: tabular-nums; */
+  --font-mono:      ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
   --fs-xs:  12px;
   --fs-sm:  14px;
   --fs-md:  16px;   /* 內文基準 */
@@ -63,33 +50,49 @@
   --fw-bold:    700;
   --line-height: 1.6;
 
-  /* ---- 間距 Spacing（8px 系統） ---- */
-  --sp-1: 4px;
-  --sp-2: 8px;
-  --sp-3: 12px;
-  --sp-4: 16px;
-  --sp-5: 24px;
-  --sp-6: 32px;
-  --sp-7: 48px;
-  --sp-8: 64px;
+  /* ---- 間距 Spacing（8px 系統，共用） ---- */
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 24px; --sp-6: 32px; --sp-7: 48px; --sp-8: 64px;
 
-  /* ---- 圓角 Radius ---- */
-  --radius-sm:   6px;    /* 小元件：badge、input */
-  --radius-md:   10px;   /* 按鈕、卡片 */
-  --radius-lg:   16px;   /* 大卡片、modal */
-  --radius-full: 999px;  /* 膠囊、頭像 */
-
-  /* ---- 陰影 Shadow ---- */
-  --shadow-sm: 0 1px 2px rgba(15, 23, 42, .06);
-  --shadow-md: 0 4px 12px rgba(15, 23, 42, .08);
-  --shadow-lg: 0 12px 32px rgba(15, 23, 42, .14);
+  /* ---- 只留給真正該是圓的（頭像、狀態圓點） ---- */
+  --radius-full: 999px;
 
   /* ---- 動畫 Motion ---- */
   --transition: 0.18s ease;
 }
 
-/* ---- 深色模式 Dark Mode Tokens ---- */
-[data-theme="dark"] {
+/* ═══ 風格一：靛紫 SaaS ═══════════════════════════════
+   保留作為「對照組」——這正是 design-reference/ 逐條點名的 AI 預設：
+   三色互搶、Tailwind 冷灰、大圓角、浮空陰影。改風格時拿它比對。 */
+:root[data-style="indigo-saas"] {
+  --primary:        #4F46E5;
+  --primary-hover:  #4338CA;
+  --primary-light:  #EEF2FF;
+  --secondary:      #0EA5E9;
+  --accent:         #F59E0B;
+
+  --success:        #16A34A;  --success-bg: #F0FDF4;
+  --warning:        #D97706;  --warning-bg: #FFFBEB;
+  --danger:         #DC2626;  --danger-bg:  #FEF2F2;
+  --info:           #0284C7;  --info-bg:    #F0F9FF;
+
+  --bg:             #F8FAFC;
+  --surface:        #FFFFFF;
+  --surface-2:      #F1F5F9;
+  --border:         #E2E8F0;
+  --text:           #0F172A;
+  --text-2:         #475569;
+  --text-3:         #94A3B8;
+
+  --radius-sm: 6px;  --radius-md: 10px;  --radius-lg: 16px;
+
+  --shadow-rgb: 15, 23, 42;
+  --shadow-a: 1;
+  --shadow-sm: 0 1px 2px   rgba(var(--shadow-rgb), calc(.06 * var(--shadow-a)));
+  --shadow-md: 0 4px 12px  rgba(var(--shadow-rgb), calc(.08 * var(--shadow-a)));
+  --shadow-lg: 0 12px 32px rgba(var(--shadow-rgb), calc(.14 * var(--shadow-a)));
+}
+:root[data-style="indigo-saas"][data-theme="dark"] {
   --primary:        #818CF8;
   --primary-hover:  #A5B4FC;
   --primary-light:  #1E1B4B;
@@ -104,9 +107,113 @@
   --text:           #F1F5F9;
   --text-2:         #CBD5E1;
   --text-3:         #64748B;
-  --shadow-sm: 0 1px 2px rgba(0,0,0,.4);
-  --shadow-md: 0 4px 12px rgba(0,0,0,.5);
-  --shadow-lg: 0 12px 32px rgba(0,0,0,.6);
+  --shadow-rgb: 0, 0, 0;
+  --shadow-a: 5;
+}
+
+/* ═══ 風格二：暖石墨工作台 ═══════════════════════════
+   只有 --primary 是「有觀點的重點色」。氧化橘扣住工具／派工調性。
+   --secondary 與 --accent 刻意壓成低彩度從屬色，不得改成第二重點色。
+   註：本風格目前是「混合態」——token 層已收斂，元件層仍有漸層與 emoji。 */
+:root[data-style="warm-graphite"] {
+  --primary:        #B3500F;   /* 氧化橘 */
+  --primary-hover:  #8F3F0B;
+  --primary-light:  #F4E7D9;
+  --secondary:      #4A443B;   /* 暖石墨，從屬非競爭 */
+  --accent:         #8C6A3F;   /* 赭，主色的低彩度同溫層 */
+
+  --success:        #4E7A37;  --success-bg: #EEF3E9;
+  --warning:        #9A6B10;  --warning-bg: #FAF2E2;
+  --danger:         #A63627;  --danger-bg:  #F8E9E6;
+  --info:           #3F6470;  --info-bg:    #EAF1F3;
+
+  --bg:             #F6F4EF;
+  --surface:        #FBFAF7;
+  --surface-2:      #F0EDE5;
+  --border:         #E4DFD4;   /* 髮絲線 */
+  --text:           #22201C;
+  --text-2:         #4A443B;
+  --text-3:         #8A8175;
+
+  --radius-sm: 3px;  --radius-md: 5px;  --radius-lg: 8px;
+
+  --shadow-rgb: 34, 32, 28;
+  --shadow-a: 1;
+  --shadow-sm: 0 1px 0   rgba(var(--shadow-rgb), calc(.04 * var(--shadow-a)));
+  --shadow-md: 0 1px 2px rgba(var(--shadow-rgb), calc(.06 * var(--shadow-a)));
+  --shadow-lg: 0 4px 12px rgba(var(--shadow-rgb), calc(.10 * var(--shadow-a)));
+}
+:root[data-style="warm-graphite"][data-theme="dark"] {
+  --primary:        #E07D33;
+  --primary-hover:  #EC9355;
+  --primary-light:  #322110;
+  --secondary:      #C8BFB0;
+  --accent:         #C09A63;
+  --success:        #84AB63;  --success-bg: #1A2413;
+  --warning:        #D9A441;  --warning-bg: #2A1E0B;
+  --danger:         #D5624F;  --danger-bg:  #2C1512;
+  --info:           #6FA3B5;  --info-bg:    #10242A;
+  --bg:             #17140F;
+  --surface:        #201C16;
+  --surface-2:      #2A251D;
+  --border:         #332D24;
+  --text:           #F0EBE1;
+  --text-2:         #C8BFB0;
+  --text-3:         #8D8474;
+  --shadow-rgb: 0, 0, 0;
+  --shadow-a: 7;
+}
+
+/* ═══ 風格三：工作台儀表 ═══════════════════════════════
+   風格二想成為的樣子：零陰影、近乎直角、髮絲線更明顯。
+   層次全靠邊框、底色深淺與間距，不靠浮空。 */
+:root[data-style="instrument"] {
+  --primary:        #B3500F;
+  --primary-hover:  #8F3F0B;
+  --primary-light:  #F4E7D9;
+  --secondary:      #4A443B;
+  --accent:         #8C6A3F;
+
+  --success:        #4E7A37;  --success-bg: #EEF3E9;
+  --warning:        #9A6B10;  --warning-bg: #FAF2E2;
+  --danger:         #A63627;  --danger-bg:  #F8E9E6;
+  --info:           #3F6470;  --info-bg:    #EAF1F3;
+
+  --bg:             #F6F4EF;   /* paper */
+  --surface:        #FBFAF7;
+  --surface-2:      #EFEBE1;
+  --border:         #D3CCBE;   /* line-2：更明顯的髮絲線 */
+  --text:           #22201C;   /* ink */
+  --text-2:         #4A443B;   /* graphite */
+  --text-3:         #8A8175;   /* muted */
+
+  --radius-sm: 2px;  --radius-md: 3px;  --radius-lg: 4px;
+
+  --shadow-rgb: 34, 32, 28;
+  --shadow-a: 1;
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+}
+:root[data-style="instrument"][data-theme="dark"] {
+  --primary:        #E07D33;
+  --primary-hover:  #EC9355;
+  --primary-light:  #322110;
+  --secondary:      #C8BFB0;
+  --accent:         #C09A63;
+  --success:        #84AB63;  --success-bg: #1A2413;
+  --warning:        #D9A441;  --warning-bg: #2A1E0B;
+  --danger:         #D5624F;  --danger-bg:  #2C1512;
+  --info:           #6FA3B5;  --info-bg:    #10242A;
+  --bg:             #17140F;
+  --surface:        #201C16;
+  --surface-2:      #2A251D;
+  --border:         #40382D;
+  --text:           #F0EBE1;
+  --text-2:         #C8BFB0;
+  --text-3:         #8D8474;
+  --shadow-rgb: 0, 0, 0;
+  --shadow-a: 7;
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -132,19 +239,90 @@ a:hover { text-decoration: underline; }
 code { font-family: var(--font-mono); font-size: 0.9em; background: var(--surface-2); padding: 2px 6px; border-radius: var(--radius-sm); }
 
 /* ═══ DEMO 頁面骨架（展示用，非元件本身） ═══ */
+/* .btn 的 display:inline-flex 會蓋過 UA 的 [hidden]{display:none}，要補回來 */
+[hidden] { display: none !important; }
+
 .demo-topbar {
   position: sticky; top: 0; z-index: 50;
-  display: flex; align-items: center; gap: var(--sp-4);
-  padding: var(--sp-3) var(--sp-5);
   background: var(--surface); border-bottom: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
 }
-.demo-topbar .logo { font-weight: var(--fw-bold); font-size: var(--fs-lg); color: var(--text); }
-.demo-topbar nav { display: flex; gap: var(--sp-4); flex-wrap: wrap; flex: 1; }
-.demo-topbar nav a { font-size: var(--fs-sm); color: var(--text-2); }
-.demo-topbar nav a:hover { color: var(--primary); text-decoration: none; }
+.topbar-row { display: flex; align-items: center; gap: var(--sp-4); padding: var(--sp-3) var(--sp-5); }
+.demo-topbar .logo { font-weight: var(--fw-bold); font-size: var(--fs-lg); color: var(--text); white-space: nowrap; }
+.topbar-actions { display: flex; gap: var(--sp-2); }
+
+/* ---- 第一列：風格分頁（標牌式底線，非膠囊 pill） ---- */
+.style-tabs { display: flex; gap: var(--sp-1); flex: 1; flex-wrap: wrap; }
+.style-tab {
+  appearance: none; background: none; border: 0; cursor: pointer;
+  font-family: inherit; font-size: var(--fs-sm); color: var(--text-2);
+  padding: var(--sp-2) var(--sp-3);
+  border-bottom: 2px solid transparent;
+  transition: color var(--transition), border-color var(--transition);
+}
+.style-tab:hover { color: var(--text); }
+.style-tab[aria-selected="true"] {
+  color: var(--primary); border-bottom-color: var(--primary); font-weight: var(--fw-medium);
+}
+.style-tab .tab-dirty { color: var(--accent); margin-left: var(--sp-1); }
+
+/* ---- 第二列：數值細項調整面板 ---- */
+.token-panel { border-top: 1px solid var(--border); }
+.token-panel > summary {
+  list-style: none; cursor: pointer;
+  padding: var(--sp-2) var(--sp-5);
+  font-size: var(--fs-sm); color: var(--text-2);
+  display: flex; align-items: center; gap: var(--sp-2);
+}
+.token-panel > summary::-webkit-details-marker { display: none; }
+.token-panel > summary::before {
+  content: ""; width: 0; height: 0; flex: 0 0 auto;
+  border-left: 5px solid var(--text-3);
+  border-top: 4px solid transparent; border-bottom: 4px solid transparent;
+  transition: transform var(--transition);
+}
+.token-panel[open] > summary::before { transform: rotate(90deg); }
+.token-panel > summary:hover { color: var(--text); }
+.panel-hint { color: var(--text-3); font-size: var(--fs-xs); }
+.panel-body { padding: 0 var(--sp-5) var(--sp-4); }
+.panel-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(228px, 1fr)); gap: var(--sp-5); }
+.tok-group h5 {
+  font-size: var(--fs-xs); letter-spacing: .08em; color: var(--text-3);
+  font-weight: var(--fw-bold); margin-bottom: var(--sp-2);
+}
+.tok { display: flex; align-items: center; gap: var(--sp-2); margin-bottom: var(--sp-1); }
+.tok label { flex: 1; font-size: var(--fs-xs); color: var(--text-2); }
+.tok input[type="color"] {
+  width: 30px; height: 22px; padding: 0; cursor: pointer;
+  border: 1px solid var(--border); border-radius: var(--radius-sm); background: none;
+}
+.tok input[type="range"] { width: 88px; accent-color: var(--primary); }
+.tok select {
+  font-family: inherit; font-size: var(--fs-xs); padding: 2px 4px;
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  background: var(--surface); color: var(--text);
+}
+/* 數值一律等寬對齊（準則：數字是一等公民） */
+.tok .val {
+  font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+  font-size: var(--fs-xs); color: var(--text-3); min-width: 46px; text-align: right;
+}
+.panel-foot { display: flex; gap: var(--sp-2); margin-top: var(--sp-4); flex-wrap: wrap; }
+.export-box {
+  width: 100%; margin-top: var(--sp-3); resize: vertical;
+  font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: var(--fs-xs);
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  background: var(--surface-2); color: var(--text); padding: var(--sp-3);
+}
+
+/* ---- 第三列：區塊錨點導覽 ---- */
+.section-nav { display: flex; gap: var(--sp-4); flex-wrap: wrap; padding: var(--sp-2) var(--sp-5); border-top: 1px solid var(--border); }
+.section-nav a { font-size: var(--fs-sm); color: var(--text-2); }
+.section-nav a:hover { color: var(--primary); text-decoration: none; }
+
 .demo-container { max-width: 1080px; margin: 0 auto; padding: var(--sp-6) var(--sp-5) var(--sp-8); }
-.demo-section { margin-bottom: var(--sp-8); }
+/* 頂端列是三列黏頂，錨點跳轉要留出被遮住的高度 */
+.demo-section { margin-bottom: var(--sp-8); scroll-margin-top: 148px; }
 .demo-section > h2 {
   padding-bottom: var(--sp-3); margin-bottom: var(--sp-5);
   border-bottom: 2px solid var(--primary);
@@ -391,7 +569,7 @@ code { font-family: var(--font-mono); font-size: 0.9em; background: var(--surfac
 /* 排行榜 Ranking List */
 .rank-num { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: var(--fw-bold); font-size: var(--fs-sm); background: var(--surface-2); color: var(--text-2); flex-shrink: 0; }
 .rank-num.r1 { background: var(--accent); color: #fff; }
-.rank-num.r2 { background: #94A3B8; color: #fff; }
+.rank-num.r2 { background: var(--text-3); color: #fff; }
 .rank-num.r3 { background: #B45309; color: #fff; }
 .rank-delta { font-size: var(--fs-xs); font-weight: var(--fw-medium); }
 .rank-delta.up { color: var(--success); }
@@ -700,7 +878,7 @@ code { font-family: var(--font-mono); font-size: 0.9em; background: var(--surfac
 /* 影片嵌入 Video Embed */
 .video { position: relative; aspect-ratio: 16 / 9; border-radius: var(--radius-lg); overflow: hidden; background: linear-gradient(135deg, #1E293B, #0F172A); cursor: pointer; box-shadow: var(--shadow-sm); }
 .video .vignette { position: absolute; inset: 0; background: radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--primary) 30%, transparent), transparent 70%); }
-.video .play { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 64px; height: 64px; border-radius: 50%; border: none; background: rgba(255,255,255,.92); color: #0F172A; font-size: 22px; cursor: pointer; transition: transform var(--transition); display: flex; align-items: center; justify-content: center; padding-left: 4px; }
+.video .play { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 64px; height: 64px; border-radius: 50%; border: none; background: rgba(255,255,255,.92); color: var(--text); font-size: 22px; cursor: pointer; transition: transform var(--transition); display: flex; align-items: center; justify-content: center; padding-left: 4px; }
 .video:hover .play { transform: translate(-50%, -50%) scale(1.1); }
 .video .vtitle { position: absolute; top: 12px; left: 14px; right: 14px; color: #fff; font-size: var(--fs-sm); font-weight: var(--fw-medium); text-shadow: 0 1px 3px rgba(0,0,0,.5); }
 .video .vbar { position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: rgba(255,255,255,.25); }
@@ -938,7 +1116,7 @@ code { font-family: var(--font-mono); font-size: 0.9em; background: var(--surfac
 .carousel { position: relative; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); }
 .carousel-track { display: flex; transition: transform .45s ease; }
 .carousel-slide { min-width: 100%; height: 180px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: var(--fs-xl); font-weight: var(--fw-bold); }
-.carousel-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; border-radius: 50%; border: none; background: rgba(255,255,255,.9); color: #0F172A; cursor: pointer; font-size: 16px; box-shadow: var(--shadow-sm); transition: all var(--transition); }
+.carousel-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; border-radius: 50%; border: none; background: rgba(255,255,255,.9); color: var(--text); cursor: pointer; font-size: 16px; box-shadow: var(--shadow-sm); transition: all var(--transition); }
 .carousel-arrow:hover { background: #fff; }
 .carousel-arrow.prev { left: 12px; } .carousel-arrow.next { right: 12px; }
 .carousel-dots { position: absolute; bottom: 12px; left: 0; right: 0; display: flex; justify-content: center; gap: 6px; }
@@ -951,7 +1129,7 @@ code { font-family: var(--font-mono); font-size: 0.9em; background: var(--surfac
 .compare .layer .tag { position: absolute; top: 10px; padding: 2px 10px; border-radius: var(--radius-full); background: rgba(0,0,0,.35); font-size: var(--fs-xs); font-weight: var(--fw-regular); }
 .compare .before .tag { left: 10px; } .compare .after .tag { right: 10px; }
 .compare-handle { position: absolute; top: 0; bottom: 0; width: 3px; background: #fff; box-shadow: var(--shadow-md); pointer-events: none; }
-.compare-handle::after { content: "⇔"; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 32px; height: 32px; border-radius: 50%; background: #fff; color: #0F172A; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+.compare-handle::after { content: "⇔"; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 32px; height: 32px; border-radius: 50%; background: #fff; color: var(--text); display: flex; align-items: center; justify-content: center; font-size: 14px; }
 .compare input[type="range"] { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; margin: 0; }
 
 /* 星級評分 Star Rating */
@@ -1044,10 +1222,41 @@ code { font-family: var(--font-mono); font-size: 0.9em; background: var(--surfac
 </head>
 <body>
 
-<!-- ═══ 頂部導覽列 Navbar（本身也是元件示範） ═══ -->
+<!-- ═══ 頂端列 ═══════════════════════════════════════════
+     第一列：風格分頁（切換 data-style）＋ 明暗切換（切換 data-theme）
+     第二列：該風格的數值細項調整面板
+     第三列：區塊錨點導覽（下方元件展示區的目錄）
+
+     分頁只承載「風格」，不承載元件；元件一律在下方展示區，
+     跟著當前風格重繪。
+     ═══════════════════════════════════════════════════ -->
 <header class="demo-topbar">
-  <div class="logo">🎨 UI/UX 風格模板</div>
-  <nav>
+
+  <div class="topbar-row">
+    <div class="logo">UI/UX 風格模板</div>
+    <nav class="style-tabs" id="styleTabs" role="tablist" aria-label="設計風格"></nav>
+    <div class="topbar-actions">
+      <button class="btn btn-ghost btn-sm" id="addStyle">＋ 新增風格</button>
+      <button class="btn btn-secondary btn-sm" id="themeToggle">深色模式</button>
+    </div>
+  </div>
+
+  <details class="token-panel" id="tokenPanel">
+    <summary>調整數值細項<span class="panel-hint" id="panelHint"></span></summary>
+    <div class="panel-body">
+      <div class="panel-groups" id="panelGroups"></div>
+      <div class="panel-foot">
+        <button class="btn btn-ghost btn-sm" id="resetStyle">重設此風格</button>
+        <button class="btn btn-ghost btn-sm" id="deleteStyle" hidden>刪除此風格</button>
+        <button class="btn btn-primary btn-sm" id="exportStyle">匯出 CSS</button>
+        <button class="btn btn-ghost btn-sm" id="copyExport" hidden>複製</button>
+      </div>
+      <textarea class="export-box" id="exportBox" rows="12" readonly hidden
+                aria-label="匯出的 CSS，貼回 index.html 的 DESIGN TOKENS 區即可永久保存"></textarea>
+    </div>
+  </details>
+
+  <nav class="section-nav" aria-label="區塊目錄">
     <a href="#tokens">Tokens</a>
     <a href="#buttons">按鈕</a>
     <a href="#forms">表單</a>
@@ -1063,7 +1272,7 @@ code { font-family: var(--font-mono); font-size: 0.9em; background: var(--surfac
     <a href="#thirdparty">第三方</a>
     <a href="#layout">版面</a>
   </nav>
-  <button class="btn btn-secondary btn-sm" id="themeToggle">🌙 深色模式</button>
+
 </header>
 
 <main class="demo-container">
@@ -1107,9 +1316,9 @@ code { font-family: var(--font-mono); font-size: 0.9em; background: var(--surfac
   <div class="demo-block">
     <h3>圓角 Radius ＆ 陰影 Shadow</h3>
     <div class="demo-row">
-      <div class="radius-demo" style="border-radius:var(--radius-sm)">sm 6px</div>
-      <div class="radius-demo" style="border-radius:var(--radius-md)">md 10px</div>
-      <div class="radius-demo" style="border-radius:var(--radius-lg)">lg 16px</div>
+      <div class="radius-demo" style="border-radius:var(--radius-sm)">sm 3px</div>
+      <div class="radius-demo" style="border-radius:var(--radius-md)">md 5px</div>
+      <div class="radius-demo" style="border-radius:var(--radius-lg)">lg 8px</div>
       <div class="radius-demo" style="border-radius:var(--radius-full)">full</div>
       <div class="shadow-demo" style="box-shadow:var(--shadow-sm);border-radius:var(--radius-md)">shadow-sm</div>
       <div class="shadow-demo" style="box-shadow:var(--shadow-md);border-radius:var(--radius-md)">shadow-md</div>
@@ -2582,15 +2791,357 @@ code { font-family: var(--font-mono); font-size: 0.9em; background: var(--surfac
 </div>
 
 <script>
-/* ═══ 互動行為（展示用，風格無關） ═══ */
+/* ═══════════════════════════════════════════════════════
+   風格引擎 Style Engine
+   ─────────────────────────────────────────────────────
+   風格（data-style）與明暗（data-theme）是兩個正交維度。
+   內建風格的 token 定義在 <style> 的 DESIGN TOKENS 區；
+   使用者的調整存成 tweaks（依 風格:明暗 分別記錄），以行內樣式覆寫；
+   新增的風格則注入一份真正的 CSS 規則，行為與內建風格完全一致。
+   ═══════════════════════════════════════════════════════ */
 
-// 深色模式切換
+const ROOT = document.documentElement;
+
+const BUILTIN_STYLES = [
+  { id: 'indigo-saas',   name: '靛紫 SaaS',     hint: 'AI 預設對照組', shadow: 'soft' },
+  { id: 'warm-graphite', name: '暖石墨工作台',  hint: '目前預設',      shadow: 'hairline' },
+  { id: 'instrument',    name: '工作台儀表',    hint: '零陰影・近直角', shadow: 'none' },
+];
+
+const COLOR_GROUPS = [
+  { title: '品牌色', tokens: [
+    ['--primary', '主色'], ['--primary-hover', '主色 hover'], ['--primary-light', '主色淺底'],
+    ['--secondary', '次色'], ['--accent', '強調色'] ] },
+  { title: '語意色', tokens: [
+    ['--success', '成功'], ['--success-bg', '成功底'], ['--warning', '警告'], ['--warning-bg', '警告底'],
+    ['--danger', '危險'], ['--danger-bg', '危險底'], ['--info', '資訊'], ['--info-bg', '資訊底'] ] },
+  { title: '中性色', tokens: [
+    ['--bg', '頁面背景'], ['--surface', '表面'], ['--surface-2', '次層表面'], ['--border', '邊框'],
+    ['--text', '主文字'], ['--text-2', '次文字'], ['--text-3', '弱化文字'] ] },
+];
+
+// [token, 標籤, 最小, 最大, 步進, 單位]
+const SIZE_TOKENS = [
+  ['--radius-sm', '小圓角', 0, 16, 1, 'px'],
+  ['--radius-md', '中圓角', 0, 24, 1, 'px'],
+  ['--radius-lg', '大圓角', 0, 32, 1, 'px'],
+  ['--fs-md', '內文字級', 12, 20, 1, 'px'],
+  ['--line-height', '行高', 1.2, 2.0, 0.02, ''],
+];
+
+// 陰影一律用 --shadow-rgb / --shadow-a 表達，換明暗時自動跟著走
+const SHADOW_PRESETS = {
+  none:     { label: '無（純髮絲線）', sm: 'none', md: 'none', lg: 'none' },
+  hairline: { label: '髮絲',
+    sm: '0 1px 0 rgba(var(--shadow-rgb), calc(.04 * var(--shadow-a)))',
+    md: '0 1px 2px rgba(var(--shadow-rgb), calc(.06 * var(--shadow-a)))',
+    lg: '0 4px 12px rgba(var(--shadow-rgb), calc(.10 * var(--shadow-a)))' },
+  soft:     { label: '柔和',
+    sm: '0 1px 2px rgba(var(--shadow-rgb), calc(.06 * var(--shadow-a)))',
+    md: '0 4px 12px rgba(var(--shadow-rgb), calc(.08 * var(--shadow-a)))',
+    lg: '0 12px 32px rgba(var(--shadow-rgb), calc(.14 * var(--shadow-a)))' },
+  strong:   { label: '明顯',
+    sm: '0 2px 4px rgba(var(--shadow-rgb), calc(.10 * var(--shadow-a)))',
+    md: '0 8px 20px rgba(var(--shadow-rgb), calc(.14 * var(--shadow-a)))',
+    lg: '0 20px 48px rgba(var(--shadow-rgb), calc(.22 * var(--shadow-a)))' },
+};
+
+const COLOR_TOKENS = COLOR_GROUPS.flatMap(g => g.tokens.map(t => t[0]));
+const TWEAKABLE = [...COLOR_TOKENS, ...SIZE_TOKENS.map(t => t[0])];
+const SNAPSHOT_TOKENS = [...TWEAKABLE, '--shadow-rgb', '--shadow-a'];
+
+/* ---- 儲存：localStorage 不可用時（例如某些瀏覽器的 file://）退回記憶體 ---- */
+const store = (() => {
+  const mem = {};
+  let ok = true;
+  try { localStorage.setItem('uiux-demo:probe', '1'); localStorage.removeItem('uiux-demo:probe'); }
+  catch { ok = false; }
+  return {
+    available: ok,
+    get(k, fallback) {
+      try { const v = ok ? localStorage.getItem(k) : mem[k]; return v == null ? fallback : JSON.parse(v); }
+      catch { return fallback; }
+    },
+    set(k, v) {
+      const s = JSON.stringify(v);
+      try { if (ok) localStorage.setItem(k, s); else mem[k] = s; } catch { mem[k] = s; }
+    },
+  };
+})();
+
+let customStyles = store.get('uiux-demo:styles', {});   // { id: {name, shadow, light:{}, dark:{}} }
+let tweaks       = store.get('uiux-demo:tweaks', {});    // { "styleId:theme": {token: value} }
+let activeId     = store.get('uiux-demo:active', 'warm-graphite');
+
+const allStyles = () => [
+  ...BUILTIN_STYLES,
+  ...Object.entries(customStyles).map(([id, s]) => ({ id, name: s.name, hint: '自訂', shadow: s.shadow, custom: true })),
+];
+const styleById = id => allStyles().find(s => s.id === id) || BUILTIN_STYLES[1];
+const theme = () => ROOT.getAttribute('data-theme') || 'light';
+const tweakKey = (id, t) => `${id}:${t}`;
+
+/* ---- 自訂風格：注入真正的 CSS 規則，與內建風格同級 ---- */
+const customSheet = document.createElement('style');
+document.head.appendChild(customSheet);
+
+function renderCustomSheet() {
+  customSheet.textContent = Object.entries(customStyles).map(([id, s]) => {
+    const sh = SHADOW_PRESETS[s.shadow] || SHADOW_PRESETS.hairline;
+    const decl = o => Object.entries(o).map(([k, v]) => `  ${k}: ${v};`).join('\n');
+    return `:root[data-style="${id}"] {\n${decl(s.light)}\n` +
+           `  --shadow-sm: ${sh.sm};\n  --shadow-md: ${sh.md};\n  --shadow-lg: ${sh.lg};\n}\n` +
+           `:root[data-style="${id}"][data-theme="dark"] {\n${decl(s.dark)}\n}`;
+  }).join('\n');
+}
+
+/* ---- 套用：先清掉行內覆寫，再依 風格:明暗 疊上 tweaks ---- */
+function clearInline() {
+  [...TWEAKABLE, '--shadow-sm', '--shadow-md', '--shadow-lg'].forEach(t => ROOT.style.removeProperty(t));
+}
+
+function applyTweaks(id, t) {
+  const tw = tweaks[tweakKey(id, t)] || {};
+  Object.entries(tw).forEach(([k, v]) => { if (k !== '__shadow') ROOT.style.setProperty(k, v); });
+  if (tw.__shadow) {
+    const p = SHADOW_PRESETS[tw.__shadow];
+    if (p) { ROOT.style.setProperty('--shadow-sm', p.sm); ROOT.style.setProperty('--shadow-md', p.md); ROOT.style.setProperty('--shadow-lg', p.lg); }
+  }
+}
+
+function apply() {
+  ROOT.setAttribute('data-style', activeId);
+  clearInline();
+  applyTweaks(activeId, theme());
+  store.set('uiux-demo:active', activeId);
+  renderTabs();
+  refreshPanel();
+}
+
+/* ---- 在指定明暗下讀取當前生效的 token（讀完還原，不留痕跡） ---- */
+function withTheme(t, fn) {
+  const prev = theme();
+  clearInline();
+  ROOT.setAttribute('data-theme', t);
+  applyTweaks(activeId, t);
+  const result = fn(getComputedStyle(ROOT));
+  ROOT.setAttribute('data-theme', prev);
+  clearInline();
+  applyTweaks(activeId, prev);
+  return result;
+}
+
+const snapshot = t => withTheme(t, cs => {
+  const out = {};
+  SNAPSHOT_TOKENS.forEach(k => { const v = cs.getPropertyValue(k).trim(); if (v) out[k] = v; });
+  return out;
+});
+
+/* ---- 分頁 ---- */
+const styleTabs = document.getElementById('styleTabs');
+
+function renderTabs() {
+  styleTabs.innerHTML = '';
+  allStyles().forEach(s => {
+    const dirty = Object.keys(tweaks).some(k => k.startsWith(s.id + ':') && Object.keys(tweaks[k]).length);
+    const b = document.createElement('button');
+    b.className = 'style-tab';
+    b.type = 'button';
+    b.setAttribute('role', 'tab');
+    b.setAttribute('aria-selected', String(s.id === activeId));
+    b.title = s.hint;
+    b.textContent = s.name;
+    if (dirty) { const m = document.createElement('span'); m.className = 'tab-dirty'; m.textContent = '•'; b.appendChild(m); }
+    b.addEventListener('click', () => { activeId = s.id; apply(); });
+    styleTabs.appendChild(b);
+  });
+}
+
+/* ---- 調整面板 ---- */
+const panelGroups = document.getElementById('panelGroups');
+const panelHint = document.getElementById('panelHint');
+const controls = {};
+
+function buildPanel() {
+  panelGroups.innerHTML = '';
+  const group = title => {
+    const d = document.createElement('div');
+    d.className = 'tok-group';
+    d.innerHTML = `<h5>${title}</h5>`;
+    panelGroups.appendChild(d);
+    return d;
+  };
+  const row = (parent, labelText) => {
+    const r = document.createElement('div');
+    r.className = 'tok';
+    const l = document.createElement('label');
+    l.textContent = labelText;
+    r.appendChild(l);
+    parent.appendChild(r);
+    return r;
+  };
+
+  COLOR_GROUPS.forEach(g => {
+    const box = group(g.title);
+    g.tokens.forEach(([token, label]) => {
+      const r = row(box, label);
+      const val = document.createElement('span');
+      val.className = 'val';
+      const inp = document.createElement('input');
+      inp.type = 'color';
+      inp.addEventListener('input', () => setTweak(token, inp.value));
+      r.appendChild(val); r.appendChild(inp);
+      controls[token] = { input: inp, val };
+    });
+  });
+
+  const sizeBox = group('尺寸');
+  SIZE_TOKENS.forEach(([token, label, min, max, step, unit]) => {
+    const r = row(sizeBox, label);
+    const val = document.createElement('span');
+    val.className = 'val';
+    const inp = document.createElement('input');
+    inp.type = 'range';
+    inp.min = min; inp.max = max; inp.step = step;
+    inp.addEventListener('input', () => setTweak(token, inp.value + unit));
+    r.appendChild(val); r.appendChild(inp);
+    controls[token] = { input: inp, val, unit };
+  });
+
+  const shadowRow = row(sizeBox, '陰影');
+  const sel = document.createElement('select');
+  Object.entries(SHADOW_PRESETS).forEach(([k, p]) => {
+    const o = document.createElement('option');
+    o.value = k; o.textContent = p.label;
+    sel.appendChild(o);
+  });
+  sel.addEventListener('change', () => setTweak('__shadow', sel.value));
+  shadowRow.appendChild(sel);
+  controls.__shadow = { input: sel };
+}
+
+function refreshPanel() {
+  const cs = getComputedStyle(ROOT);
+  COLOR_TOKENS.forEach(token => {
+    const raw = cs.getPropertyValue(token).trim();
+    const c = controls[token];
+    if (!c) return;
+    c.val.textContent = raw.toUpperCase();
+    c.input.value = /^#[0-9a-f]{6}$/i.test(raw) ? raw : '#000000';
+  });
+  SIZE_TOKENS.forEach(([token, , , , , unit]) => {
+    const raw = cs.getPropertyValue(token).trim();
+    const n = parseFloat(raw);
+    const c = controls[token];
+    if (!c || Number.isNaN(n)) return;
+    c.input.value = n;
+    c.val.textContent = unit ? `${n}${unit}` : n.toFixed(2);
+  });
+
+  const tw = tweaks[tweakKey(activeId, theme())] || {};
+  controls.__shadow.input.value = tw.__shadow || styleById(activeId).shadow;
+
+  const s = styleById(activeId);
+  panelHint.textContent = `— ${s.name}・${theme() === 'dark' ? '深色' : '淺色'}`;
+  document.getElementById('deleteStyle').hidden = !s.custom;
+  if (!store.available) panelHint.textContent += '（此瀏覽器無法儲存，重整後會還原）';
+}
+
+function setTweak(token, value) {
+  const key = tweakKey(activeId, theme());
+  tweaks[key] = tweaks[key] || {};
+  tweaks[key][token] = value;
+  store.set('uiux-demo:tweaks', tweaks);
+  clearInline();
+  applyTweaks(activeId, theme());
+  refreshPanel();
+  renderTabs();
+}
+
+/* ---- 明暗切換（與風格正交） ---- */
 const themeToggle = document.getElementById('themeToggle');
 themeToggle.addEventListener('click', () => {
-  const dark = document.documentElement.getAttribute('data-theme') === 'dark';
-  document.documentElement.setAttribute('data-theme', dark ? 'light' : 'dark');
-  themeToggle.textContent = dark ? '🌙 深色模式' : '☀️ 淺色模式';
+  const dark = theme() === 'dark';
+  ROOT.setAttribute('data-theme', dark ? 'light' : 'dark');
+  themeToggle.textContent = dark ? '深色模式' : '淺色模式';
+  clearInline();
+  applyTweaks(activeId, theme());
+  refreshPanel();
 });
+
+/* ---- 新增 / 刪除 / 重設 ---- */
+document.getElementById('addStyle').addEventListener('click', () => {
+  const name = (prompt('新風格的名稱？', styleById(activeId).name + ' 副本') || '').trim();
+  if (!name) return;
+  const id = 'custom-' + Math.abs(Array.from(name + activeId + allStyles().length).reduce((h, c) => (h * 31 + c.charCodeAt(0)) | 0, 7)).toString(36);
+  const tw = tweaks[tweakKey(activeId, theme())] || {};
+  customStyles[id] = {
+    name,
+    shadow: tw.__shadow || styleById(activeId).shadow,
+    light: snapshot('light'),
+    dark: snapshot('dark'),
+  };
+  store.set('uiux-demo:styles', customStyles);
+  renderCustomSheet();
+  activeId = id;
+  apply();
+});
+
+document.getElementById('deleteStyle').addEventListener('click', () => {
+  const s = styleById(activeId);
+  if (!s.custom || !confirm(`刪除風格「${s.name}」？`)) return;
+  delete customStyles[activeId];
+  delete tweaks[tweakKey(activeId, 'light')];
+  delete tweaks[tweakKey(activeId, 'dark')];
+  store.set('uiux-demo:styles', customStyles);
+  store.set('uiux-demo:tweaks', tweaks);
+  renderCustomSheet();
+  activeId = 'warm-graphite';
+  apply();
+});
+
+document.getElementById('resetStyle').addEventListener('click', () => {
+  delete tweaks[tweakKey(activeId, 'light')];
+  delete tweaks[tweakKey(activeId, 'dark')];
+  store.set('uiux-demo:tweaks', tweaks);
+  apply();
+});
+
+/* ---- 匯出：貼回 <style> 的 DESIGN TOKENS 區即可永久保存 ---- */
+const exportBox = document.getElementById('exportBox');
+const copyExport = document.getElementById('copyExport');
+
+document.getElementById('exportStyle').addEventListener('click', () => {
+  const s = styleById(activeId);
+  const shadowKey = (tweaks[tweakKey(activeId, theme())] || {}).__shadow || s.shadow;
+  const sh = SHADOW_PRESETS[shadowKey];
+  const light = snapshot('light');
+  const dark = snapshot('dark');
+  // 深色區塊只列出與淺色不同的 token，維持「覆寫」語意
+  const diff = Object.fromEntries(Object.entries(dark).filter(([k, v]) => light[k] !== v));
+  const decl = o => Object.entries(o).map(([k, v]) => `  ${k}: ${v};`).join('\n');
+
+  exportBox.value =
+    `/* ${s.name} */\n` +
+    `:root[data-style="${activeId}"] {\n${decl(light)}\n` +
+    `  --shadow-sm: ${sh.sm};\n  --shadow-md: ${sh.md};\n  --shadow-lg: ${sh.lg};\n}\n\n` +
+    `:root[data-style="${activeId}"][data-theme="dark"] {\n${decl(diff)}\n}`;
+  exportBox.hidden = false;
+  copyExport.hidden = false;
+});
+
+copyExport.addEventListener('click', async () => {
+  try { await navigator.clipboard.writeText(exportBox.value); }
+  catch { exportBox.select(); document.execCommand('copy'); }
+  copyExport.textContent = '已複製';
+  setTimeout(() => { copyExport.textContent = '複製'; }, 1500);
+});
+
+/* ---- 啟動 ---- */
+if (!allStyles().some(s => s.id === activeId)) activeId = 'warm-graphite';
+renderCustomSheet();
+buildPanel();
+apply();
 
 // Tabs
 document.querySelectorAll('#demoTabs .tab').forEach(tab => {
